@@ -1,11 +1,37 @@
 {
   "name": "spectre-react-lib",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Spectre.css and React integration",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/FIL1994/spectre-react-lib"
+  },
+  "main": "commonjs/index.js",
+  "module": "es/index.js",
+  "files": [
+    "es",
+    "commonjs"
+  ],
   "author": "Philip Van Raalte",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">= 15.6.0",
+    "react-dom": ">= 15.6.0",
+    "lodash": ">= 4.17.0"
+  },
+  "devDependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "keywords": [
+    "react",
+    "spectre"
+  ],
+  "bugs": {
+    "url": "https://github.com/FIL1994/spectre-react-lib/issues"
+  },
+  "homepage": "https://github.com/FIL1994/spectre-react-lib#readme"
 }

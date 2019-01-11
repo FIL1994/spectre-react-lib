@@ -1,0 +1,9 @@
+/es
+/commonjs
+/node_modules
+/umd
+/index.js
+/lib
+npm-debug.log*
+yarn-error.log*
+.DS_Store
