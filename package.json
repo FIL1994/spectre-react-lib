@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Spectre.css and React integration",
   "scripts": {
-    "build": "rollup -c -f umd -o umd/index.js"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "gulp": "^4.0.0",
+    "gzip-size": "^5.0.0",
     "inquirer": "^6.2.1",
     "pretty-bytes": "^5.1.0",
     "react": "^16.7.0",
