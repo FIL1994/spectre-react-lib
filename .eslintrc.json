@@ -1,0 +1,22 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "parser": "babel-eslint",
+  "plugins": ["babel"],
+  "env": { "browser": true },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/destructuring-assignment": "always",
+    "one-var": 0,
+    "react/no-children-prop": 0,
+    "react/forbid-prop-types": 0,
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/label-has-associated-control": 1,
+    "prefer-const": 0,
+    "linebreak-style": "off",
+    "react/jsx-wrap-multilines": "ignore",
+    "react/no-array-index-key": "warn",
+    "no-plusplus": 0,
+    "no-unused-expressions": 0,
+    "babel/no-unused-expressions": 2
+  }
+}

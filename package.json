@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Spectre.css and React integration",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,14 @@
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.5.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.4",
     "gulp": "^4.0.0",
     "gzip-size": "^5.0.0",
     "inquirer": "^6.2.1",
