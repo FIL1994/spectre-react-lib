@@ -9,11 +9,12 @@
     "type": "git",
     "url": "git+ssh://git@github.com/FIL1994/spectre-react-lib"
   },
-  "main": "commonjs/index.js",
+  "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
     "es",
-    "commonjs"
+    "lib",
+    "umd"
   ],
   "author": "Philip Van Raalte",
   "license": "MIT",
