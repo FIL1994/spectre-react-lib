@@ -10,3 +10,9 @@ jobs:
       - run:
           name: Run Lint
           command: npm run lint
+      - run:
+          name: Run Tests
+          command: npm run test
+      - run:
+          name: Report Coverage
+          command: bash <(curl -s https://codecov.io/bash)
