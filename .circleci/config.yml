@@ -9,7 +9,7 @@ jobs:
           command: npm install
   lint:
     machine: true
-      steps:
-        - run:
-          name: Run Lint
-          command: npm run lint
+    steps:
+      - run:
+        name: Run Lint
+        command: npm run lint
