@@ -36,6 +36,14 @@ Grid.Column = props => {
   return <div {...myProps} className={className} />;
 };
 
+Grid.Column.defaultProps = {
+  className: ""
+};
+
+Grid.Column.propTypes = {
+  className: PropTypes.string
+};
+
 Grid.Column.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
