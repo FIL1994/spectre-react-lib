@@ -7,9 +7,7 @@ jobs:
       - run:
           name: Install Packages
           command: npm install
-  lint:
-    machine: true
-    steps:
       - run:
         name: Run Lint
         command: npm run lint
+      
