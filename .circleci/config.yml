@@ -1,0 +1,9 @@
+version: 1
+jobs:
+  build:
+    steps:
+      - checkout
+      - run
+        name: Install Packages
+        command: npm install
+        
