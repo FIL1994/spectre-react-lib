@@ -8,6 +8,5 @@ jobs:
           name: Install Packages
           command: npm install
       - run:
-        name: Run Lint
-        command: npm run lint
-      
+          name: Run Lint
+          command: npm run lint
