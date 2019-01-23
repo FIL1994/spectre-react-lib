@@ -1,4 +1,4 @@
-import isString from "lodash/isString";
+import _ from "lodash";
 
 /**
  * Prepends the className from props to the component default className.
@@ -7,7 +7,7 @@ import isString from "lodash/isString";
  * @returns {String} JSX Component
  */
 function addClass(defaultClass, newClass) {
-  return `${defaultClass} ${isString(newClass) ? newClass : ""}`.trim();
+  return `${defaultClass} ${_.isString(newClass) ? newClass : ""}`.trim();
 }
 
 export { addClass };
