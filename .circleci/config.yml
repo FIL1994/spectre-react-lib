@@ -3,7 +3,6 @@ jobs:
   build:
     steps:
       - checkout
-      - run
+      - run:
         name: Install Packages
         command: npm install
-        
