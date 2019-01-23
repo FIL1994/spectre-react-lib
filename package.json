@@ -1,6 +1,6 @@
 {
   "name": "spectre-react-lib",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Spectre.css and React integration",
   "scripts": {
     "build": "gulp build",
@@ -29,6 +29,7 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
