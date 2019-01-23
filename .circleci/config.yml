@@ -5,5 +5,5 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install Packages
-        command: npm install
+          name: Install Packages
+          command: npm install
