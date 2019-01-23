@@ -18,10 +18,12 @@ const Grid = props => {
 };
 
 Grid.defaultProps = {
+  className: "",
   gapless: false
 };
 
 Grid.propTypes = {
+  className: PropTypes.string,
   gapless: PropTypes.bool
 };
 
