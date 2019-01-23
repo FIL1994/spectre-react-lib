@@ -25,4 +25,14 @@ const Divider = props => {
   return <div {...props} className={className} />;
 };
 
+Divider.defaultProps = {
+  className: "",
+  size: undefined
+};
+
+Divider.propTypes = {
+  className: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
+
 export default Divider;
