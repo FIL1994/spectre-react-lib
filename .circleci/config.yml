@@ -9,7 +9,7 @@ jobs:
           command: npm install
       - run:
           name: Run Lint
-          command: npm run lint
+          command: scripts/lint
       - run:
           name: Run Tests
           command: npm run test
