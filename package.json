@@ -5,7 +5,7 @@
   "scripts": {
     "build": "gulp build",
     "lint": "eslint src",
-    "test": "jest --config=jest.config.js --verbose"
+    "test": "jest --config=jest.config.js --verbose --coverage"
   },
   "repository": {
     "type": "git",
