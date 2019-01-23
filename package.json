@@ -15,7 +15,8 @@
   "files": [
     "es",
     "lib",
-    "umd"
+    "umd",
+    "LICENSE"
   ],
   "author": "Philip Van Raalte",
   "license": "MIT",
