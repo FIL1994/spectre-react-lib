@@ -65,7 +65,8 @@
   },
   "keywords": [
     "react",
-    "spectre"
+    "spectre",
+    "ui"
   ],
   "bugs": {
     "url": "https://github.com/FIL1994/spectre-react-lib/issues"
