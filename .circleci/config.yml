@@ -18,9 +18,31 @@ jobs:
           name: Report Coverage
           command: bash <(curl -s https://codecov.io/bash)
       - store_test_results:
-            path: test-results
+            path: coverage
+  coverage:
+    machine: true
+    parallelism: 1
+    steps:
+      - checkout
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          name: Run Tests
+          command: npm run test
+      - run:
+          name: Report Coverage
+          command: bash <(curl -s https://codecov.io/bash)
 workflows:
     version: 2
     test_flow:
         jobs:
             - build
+    master_coverage:
+        jobs:
+            - coverage:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: master
