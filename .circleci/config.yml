@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     machine: true
-    parallelism: 1
+    parallelism: 4
     steps:
       - checkout
       - run:
@@ -19,24 +19,8 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash)
       - store_test_results:
             path: coverage
-  coverage:
-    machine: true
-    parallelism: 1
-    steps:
-      - run:
-          name: Report Coverage
-          command: bash <(curl -s https://codecov.io/bash)
 workflows:
     version: 2
     test_flow:
         jobs:
             - build
-    master_coverage:
-        filters:
-            branches:
-                only: master
-        jobs:
-            - build
-            - coverage:
-                requires:
-                    - build
