@@ -16,3 +16,9 @@ jobs:
       - run:
           name: Report Coverage
           command: bash <(curl -s https://codecov.io/bash)
+workflows:
+    version: 2
+    test_flow:
+        jobs:
+            -build
+            
