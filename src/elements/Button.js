@@ -10,7 +10,7 @@ import { addClass } from "../helpers";
  * @returns {XML} JSX Component
  * @constructor
  */
-let Button = props => {
+const Button = props => {
   const {
     small,
     large,
@@ -99,7 +99,37 @@ let Button = props => {
 };
 
 Button.defaultProps = {
-  as: props => <button type="button" {...props} /> // type defaults to "button" if no component is provided in props
+  className: "",
+  as: props => <button type="button" {...props} />, // type defaults to "button" if no component is provided in props
+  large: false,
+  small: false,
+  block: false,
+  primary: false,
+  success: false,
+  error: false,
+  link: false,
+  loading: false,
+  centered: false,
+  inputGroup: false,
+  disabled: false,
+  size: undefined
+};
+
+Button.propTypes = {
+  className: PropTypes.string,
+  as: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  large: PropTypes.bool,
+  small: PropTypes.bool,
+  block: PropTypes.bool,
+  primary: PropTypes.bool,
+  success: PropTypes.bool,
+  error: PropTypes.bool,
+  link: PropTypes.bool,
+  loading: PropTypes.bool,
+  centered: PropTypes.bool,
+  inputGroup: PropTypes.bool,
+  disabled: PropTypes.bool,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Button.Group = props => {
@@ -117,6 +147,16 @@ Button.Group = props => {
   let myProps = _.omit(props, ["block"]);
 
   return <div {...myProps} className={className} />;
+};
+
+Button.Group.defaultProps = {
+  className: "",
+  block: false
+};
+
+Button.Group.propTypes = {
+  className: PropTypes.string,
+  block: PropTypes.bool
 };
 
 export default Button;
