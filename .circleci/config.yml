@@ -23,13 +23,6 @@ jobs:
     machine: true
     parallelism: 1
     steps:
-      - checkout
-      - run:
-          name: Install Packages
-          command: npm install
-      - run:
-          name: Run Tests
-          command: npm run test
       - run:
           name: Report Coverage
           command: bash <(curl -s https://codecov.io/bash)
@@ -40,6 +33,7 @@ workflows:
             - build
     master_coverage:
         jobs:
+            - build
             - coverage:
                 requires:
                     - build
