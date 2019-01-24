@@ -10,7 +10,7 @@ import { addClass } from "../helpers";
  * @returns {XML} JSX Component
  * @constructor
  */
-let Button = props => {
+const Button = props => {
   const {
     small,
     large,
