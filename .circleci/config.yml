@@ -32,11 +32,11 @@ workflows:
         jobs:
             - build
     master_coverage:
+        filters:
+            branches:
+                only: master
         jobs:
             - build
             - coverage:
                 requires:
                     - build
-                filters:
-                    branches:
-                        only: master
