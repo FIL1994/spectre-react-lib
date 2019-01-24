@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-import { addClass } from "../helpers";
+import { addClass, onEnter } from "../helpers";
 
 /**
  * A hover parallax effect.
@@ -28,10 +28,34 @@ const Parallax = props => {
 
   return (
     <div {...myProps} className={className}>
-      <div className="parallax-top-left" onClick={topLeft} />
-      <div className="parallax-top-right" onClick={topRight} />
-      <div className="parallax-bottom-left" onClick={bottomLeft} />
-      <div className="parallax-bottom-right" onClick={bottomRight} />
+      <div
+        className="parallax-top-left"
+        role="button"
+        tabIndex="0"
+        onClick={topLeft}
+        onKeyPress={onEnter(topLeft)}
+      />
+      <div
+        className="parallax-top-right"
+        role="button"
+        tabIndex="0"
+        onClick={topRight}
+        onKeyPress={onEnter(topRight)}
+      />
+      <div
+        className="parallax-bottom-left"
+        role="button"
+        tabIndex="0"
+        onClick={bottomLeft}
+        onKeyPress={onEnter(bottomLeft)}
+      />
+      <div
+        className="parallax-bottom-right"
+        role="button"
+        tabIndex="0"
+        onClick={bottomRight}
+        onKeyPress={onEnter(bottomRight)}
+      />
       <div className="parallax-content">
         <div className="parallax-front">
           <h2>{title}</h2>
@@ -40,6 +64,26 @@ const Parallax = props => {
       </div>
     </div>
   );
+};
+
+Parallax.defaultProps = {
+  className: "",
+  children: undefined,
+  title: "",
+  topLeft: () => {},
+  topRight: () => {},
+  bottomLeft: () => {},
+  bottomRight: () => {}
+};
+
+Parallax.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  title: PropTypes.node,
+  topLeft: PropTypes.func,
+  topRight: PropTypes.func,
+  bottomLeft: PropTypes.func,
+  bottomRight: PropTypes.func
 };
 
 export default Parallax;
