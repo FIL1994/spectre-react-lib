@@ -6,6 +6,15 @@
 
 Spectre.css and React integration
 
+## Usage
+Installation:
+```
+npm i -S spectre-react-lib
+```
+
+Importing components:
 ```javascript
 import { Button, Page, Table, Tab, Pagination } from "spectre-react-lib"
 ```
+---
+See [tests](https://github.com/FIL1994/spectre-react-lib/tree/master/tests/spec) for examples
