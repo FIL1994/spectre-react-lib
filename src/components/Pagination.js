@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-import { addClass } from "../helpers";
+import { addClass, onEnter } from "../helpers";
 
 /**
  * @param {Object} props Properties for the component.
@@ -30,6 +30,9 @@ const Pagination = props => {
   const nextEnabled = !(activePage >= totalPages);
   const disabledTab = { tabIndex: "-1" };
 
+  const onClickBack = e => props.onClick(e, activePage - 1);
+  const onClickForward = e => props.onClick(e, activePage + 1);
+
   return (
     <ul
       style={centered ? { justifyContent: "center" } : {}}
@@ -37,27 +40,49 @@ const Pagination = props => {
       className={className}
     >
       <li
-        onClick={!prevEnabled ? _.noop : e => props.onClick(e, activePage - 1)}
         className={`page-item ${prevEnabled ? "" : "disabled"}`}
+        tabIndex="0"
+        onClick={!prevEnabled ? _.noop : onClickBack}
+        onKeyPress={!prevEnabled ? _.noop : onEnter(onClickBack)}
       >
-        <a style={{ cursor: "pointer" }} {...(prevEnabled ? {} : disabledTab)}>
+        <a
+          href="#"
+          tabIndex="-1"
+          style={{ cursor: "pointer" }}
+          {...(prevEnabled ? {} : disabledTab)}
+        >
           {"<"}
         </a>
       </li>
-      {pages.map((i, index) => (
-        <li
-          key={index}
-          className={`page-item ${index + 1 === activePage ? "active" : ""}`}
-          onClick={e => props.onClick(e, index + 1)}
-        >
-          <a style={{ cursor: "pointer" }}>{index + 1}</a>
-        </li>
-      ))}
+      {pages.map((i, index) => {
+        const onClick = e => props.onClick(e, index + 1);
+
+        return (
+          <li
+            key={index}
+            className={`page-item ${index + 1 === activePage ? "active" : ""}`}
+            tabIndex="0"
+            onClick={onClick}
+            onKeyPress={onEnter(onClick)}
+          >
+            <a href="#" tabIndex="-1" style={{ cursor: "pointer" }}>
+              {index + 1}
+            </a>
+          </li>
+        );
+      })}
       <li
-        onClick={!nextEnabled ? _.noop : e => props.onClick(e, activePage + 1)}
         className={`page-item ${nextEnabled ? "" : "disabled"}`}
+        tabIndex="0"
+        onClick={!nextEnabled ? _.noop : onClickForward}
+        onKeyPress={!nextEnabled ? _.noop : onEnter(onClickForward)}
       >
-        <a style={{ cursor: "pointer" }} {...(nextEnabled ? {} : disabledTab)}>
+        <a
+          href="#"
+          tabIndex="-1"
+          style={{ cursor: "pointer" }}
+          {...(nextEnabled ? {} : disabledTab)}
+        >
           {">"}
         </a>
       </li>
@@ -65,13 +90,18 @@ const Pagination = props => {
   );
 };
 
-Pagination.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  totalPages: PropTypes.number.isRequired
+Pagination.defaultProps = {
+  className: "",
+  activePage: 1,
+  centered: false
 };
 
-Pagination.defaultProps = {
-  activePage: 1
+Pagination.propTypes = {
+  className: PropTypes.string,
+  activePage: PropTypes.number,
+  centered: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired
 };
 
 export default Pagination;

@@ -16,6 +16,6 @@ export function addClass(defaultClass, newClass) {
  */
 export const onEnter = callback => event => {
   if (event.key === "Enter") {
-    callback();
+    callback(event);
   }
 };

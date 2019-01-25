@@ -24,8 +24,10 @@
       {
         "components": ["Link"],
         "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["noHref", "preferButton"]
+        "aspects": ["noHref"]
       }
-    ]
+    ],
+    "jsx-a11y/no-noninteractive-element-interactions": "0",
+    "jsx-a11y/no-noninteractive-tabindex": "0"
   }
 }
