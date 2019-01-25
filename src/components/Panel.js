@@ -38,4 +38,18 @@ const Panel = props => {
   );
 };
 
+Panel.defaultProps = {
+  className: "",
+  children: undefined,
+  title: undefined,
+  footer: undefined
+};
+
+Panel.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  title: PropTypes.node,
+  footer: PropTypes.node
+};
+
 export default Panel;

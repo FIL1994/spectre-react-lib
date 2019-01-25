@@ -28,4 +28,18 @@ const EmptyState = props => {
   );
 };
 
+EmptyState.defaultProps = {
+  className: "",
+  children: undefined,
+  title: undefined,
+  icon: undefined
+};
+
+EmptyState.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  title: PropTypes.node,
+  icon: PropTypes.node
+};
+
 export default EmptyState;

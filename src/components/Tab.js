@@ -28,6 +28,16 @@ const Tab = props => {
   return <ul {...myProps} className={className} />;
 };
 
+Tab.defaultProps = {
+  className: "",
+  block: false
+};
+
+Tab.propTypes = {
+  className: PropTypes.string,
+  block: PropTypes.bool
+};
+
 Tab.Heading = props => {
   const { active } = props;
   // add the className prop to the className
@@ -44,6 +54,16 @@ Tab.Heading = props => {
   let myProps = _.omit(props, ["active"]);
 
   return <li {...myProps} className={className} />;
+};
+
+Tab.Heading.defaultProps = {
+  className: "",
+  active: false
+};
+
+Tab.Heading.propTypes = {
+  className: PropTypes.string,
+  active: PropTypes.bool
 };
 
 export default Tab;
