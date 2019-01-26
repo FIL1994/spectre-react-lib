@@ -1,4 +1,5 @@
-# Change Log
-This project doesn't have a changelog.
+# CHANGELOG
 
-View the [releases section](https://github.com/FIL1994/spectre-react-lib/releases) to see information about versions.
+The changelog is automatically updated using
+[semantic-release](https://github.com/semantic-release/semantic-release). You
+can see it on the [releases page](https://github.com/FIL1994/spectre-react-lib/releases).
