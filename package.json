@@ -1,6 +1,6 @@
 {
   "name": "spectre-react-lib",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Spectre.css and React integration",
   "scripts": {
     "build": "gulp build",
