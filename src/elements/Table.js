@@ -36,6 +36,20 @@ const Table = props => {
   return <table {...myProps} className={className} />;
 };
 
+Table.defaultProps = {
+  className: "",
+  striped: false,
+  hover: false,
+  centered: false
+};
+
+Table.propTypes = {
+  className: PropTypes.string,
+  striped: PropTypes.bool,
+  hover: PropTypes.bool,
+  centered: PropTypes.bool
+};
+
 Table.Head = props => {
   const { headings, headingProps, onHeadingClick } = props;
 
@@ -63,19 +77,17 @@ Table.Head = props => {
 
 Table.Head.propTypes = {
   headings: PropTypes.array.isRequired,
-  onHeadingClick: PropTypes.func
+  onHeadingClick: PropTypes.func,
+  headingProps: PropTypes.object
 };
 
 Table.Head.defaultProps = {
-  onHeadingClick: _.noop
+  onHeadingClick: () => {},
+  headingProps: {}
 };
 
-Table.Body = props => {
-  return <tbody {...props} />;
-};
+Table.Body = props => <tbody {...props} />;
 
-Table.Row = props => {
-  return <tr {...props} />;
-};
+Table.Row = props => <tr {...props} />;
 
 export default Table;

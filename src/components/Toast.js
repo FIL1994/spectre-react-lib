@@ -29,4 +29,16 @@ const Toast = props => {
   return <div {...myProps} className={className} />;
 };
 
+Toast.defaultProps = {
+  className: "",
+  primary: false,
+  centered: false
+};
+
+Toast.propTypes = {
+  className: PropTypes.string,
+  primary: PropTypes.bool,
+  centered: PropTypes.bool
+};
+
 export default Toast;

@@ -18,10 +18,12 @@ const Grid = props => {
 };
 
 Grid.defaultProps = {
+  className: "",
   gapless: false
 };
 
 Grid.propTypes = {
+  className: PropTypes.string,
   gapless: PropTypes.bool
 };
 
@@ -32,6 +34,14 @@ Grid.Column = props => {
   let myProps = _.omit(props, ["width"]);
 
   return <div {...myProps} className={className} />;
+};
+
+Grid.Column.defaultProps = {
+  className: ""
+};
+
+Grid.Column.propTypes = {
+  className: PropTypes.string
 };
 
 Grid.Column.propTypes = {

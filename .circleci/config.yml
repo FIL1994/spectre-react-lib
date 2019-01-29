@@ -2,6 +2,7 @@ version: 2
 jobs:
   build:
     machine: true
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
@@ -16,3 +17,19 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+      - run:
+          name: Run Lint
+          command: scripts/lint.sh
+      - run:
+          name: Run Tests
+          command: npm run test
+      - run:
+          name: Report Coverage
+          command: bash <(curl -s https://codecov.io/bash)
+      - store_test_results:
+            path: coverage
+workflows:
+    version: 2
+    test_flow:
+        jobs:
+            - build

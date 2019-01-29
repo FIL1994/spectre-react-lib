@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
@@ -36,6 +36,20 @@ const Panel = props => {
       {footer && <div className="panel-footer">{footer}</div>}
     </div>
   );
+};
+
+Panel.defaultProps = {
+  className: "",
+  children: undefined,
+  title: undefined,
+  footer: undefined
+};
+
+Panel.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  title: PropTypes.node,
+  footer: PropTypes.node
 };
 
 export default Panel;

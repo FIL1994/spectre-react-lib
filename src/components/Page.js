@@ -25,4 +25,14 @@ const Page = props => {
   return <div {...myProps} className={className} />;
 };
 
+Page.defaultProps = {
+  className: "",
+  centered: false
+};
+
+Page.propTypes = {
+  className: PropTypes.string,
+  centered: PropTypes.bool
+};
+
 export default Page;

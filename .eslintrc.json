@@ -17,6 +17,17 @@
     "react/no-array-index-key": "warn",
     "no-plusplus": 0,
     "no-unused-expressions": 0,
-    "babel/no-unused-expressions": 2
+    "babel/no-unused-expressions": 2,
+    "import/prefer-default-export": 0,
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["noHref"]
+      }
+    ],
+    "jsx-a11y/no-noninteractive-element-interactions": "0",
+    "jsx-a11y/no-noninteractive-tabindex": "0"
   }
 }

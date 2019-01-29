@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import _ from "lodash";
+import Tab from "./Tab";
+
+import { onEnter } from "../helpers";
 
 class ControlledTab extends Component {
   state = {
@@ -22,14 +24,18 @@ class ControlledTab extends Component {
       <Fragment>
         <Tab block>
           {this.props.options.map(({ label, value }) => {
+            const onClick = () => {
+              this.setState({ active: value });
+            };
+
             return (
               <Fragment key={value}>
                 <Tab.Heading
                   active={this.state.active === value}
-                  onClick={() => {
-                    this.setState({ active: value });
-                  }}
-                  children={<a>{label}</a>}
+                  tabIndex="0"
+                  onClick={onClick}
+                  onKeyPress={onEnter(onClick)}
+                  children={<a href="#">{label}</a>}
                 />
               </Fragment>
             );
@@ -40,8 +46,10 @@ class ControlledTab extends Component {
     );
   }
 }
+
 ControlledTab.defaultProps = {
-  defaultActive: undefined
+  defaultActive: undefined,
+  options: []
 };
 
 ControlledTab.propTypes = {
