@@ -20,6 +20,7 @@ class ControlledTab extends Component {
   };
 
   render() {
+    console.log(this.props.defaultActive)
     return (
       <Fragment>
         <Tab block>
@@ -56,8 +57,8 @@ ControlledTab.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.stringisRequired,
-      render: PropTypes.nodeisRequired
+      value: PropTypes.string.isRequired,
+      render: PropTypes.func.isRequired
     })
   ),
   defaultActive: PropTypes.string
