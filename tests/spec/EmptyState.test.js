@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-testing-library";
 import { EmptyState } from "../../src/index";
 
-describe("EmptyState", () => {
+describe("Empty State", () => {
   test("renders without crashing", () => {
     render(<EmptyState />);
   });
