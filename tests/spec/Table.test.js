@@ -8,7 +8,7 @@ describe("Table", () => {
   });
 
   test("is working", () => {
-    const onHeadingClick = jest.fn(() => {});
+    const onHeadingClick = jest.fn();
 
     const { getByText } = render(
       <Table striped hover centered>

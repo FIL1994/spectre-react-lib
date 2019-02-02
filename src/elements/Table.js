@@ -82,7 +82,7 @@ Table.Head.propTypes = {
 };
 
 Table.Head.defaultProps = {
-  onHeadingClick: () => {},
+  onHeadingClick: _.noop,
   headingProps: {}
 };
 
