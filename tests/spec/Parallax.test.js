@@ -1,14 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { render, fireEvent } from "react-testing-library";
 
 import { Parallax } from "../../src/index";
 
 describe("Parallax", () => {
   test("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<Parallax />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    render(<Parallax />);
   });
 
   test("corners call onClick handlers", () => {

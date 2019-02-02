@@ -1,11 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-testing-library";
 import { Page } from "../../src/index";
 
 describe("Page", () => {
   test("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<Page />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    render(<Page />);
+  });
+
+  test("props work", () => {
+    const { container } = render(<Page centered />);
+
+    expect(container.querySelector(".centered")).not.toBeNull();
   });
 });
