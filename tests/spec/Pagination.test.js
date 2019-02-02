@@ -4,11 +4,11 @@ import { Pagination } from "../../src/index";
 
 describe("Pagination", () => {
   test("renders without crashing", () => {
-    render(<Pagination onClick={() => {}} totalPages={3} />);
+    render(<Pagination onClick={jest.fn()} totalPages={3} />);
   });
 
   test("calls onClick", () => {
-    const onClickMock = jest.fn(() => {});
+    const onClickMock = jest.fn();
 
     const { getByText, container } = render(
       <Pagination
@@ -30,7 +30,7 @@ describe("Pagination", () => {
 
   test("handles one page", () => {
     const { getByText, container } = render(
-      <Pagination onClick={() => {}} totalPages={1} centered />
+      <Pagination onClick={jest.fn()} totalPages={1} centered />
     );
 
     getByText("1");
