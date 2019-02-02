@@ -20,7 +20,6 @@ class ControlledTab extends Component {
   };
 
   render() {
-    console.log(this.props.defaultActive)
     return (
       <Fragment>
         <Tab block>
