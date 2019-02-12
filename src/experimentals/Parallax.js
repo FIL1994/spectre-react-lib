@@ -70,10 +70,10 @@ Parallax.defaultProps = {
   className: "",
   children: undefined,
   title: "",
-  topLeft: () => {},
-  topRight: () => {},
-  bottomLeft: () => {},
-  bottomRight: () => {}
+  topLeft: _.noop,
+  topRight: _.noop,
+  bottomLeft: _.noop,
+  bottomRight: _.noop
 };
 
 Parallax.propTypes = {
