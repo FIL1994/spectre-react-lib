@@ -7,6 +7,12 @@ describe("Grid", () => {
     render(<Grid />);
   });
 
+  test("gapless prop works", () => {
+    const { container } = render(<Grid gapless />);
+
+    expect(container.querySelector(".col-gapless")).not.toBeNull();
+  });
+
   describe("Column", () => {
     test("renders without crashing", () => {
       render(<Grid.Column width="4" />);
