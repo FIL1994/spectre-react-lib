@@ -41,10 +41,7 @@ Grid.Column.defaultProps = {
 };
 
 Grid.Column.propTypes = {
-  className: PropTypes.string
-};
-
-Grid.Column.propTypes = {
+  className: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
