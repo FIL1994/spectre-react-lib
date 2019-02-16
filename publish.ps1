@@ -1,1 +1,2 @@
-npm publish --acess=public
+npm run build
+npm publish --access=public
