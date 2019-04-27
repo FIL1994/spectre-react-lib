@@ -31,5 +31,5 @@ import {
   EmptyState
 } from "spectre-react-lib";
 ```
-## Example
+## Examples
 [View here](http://spectre-react-lib.philvr.com)
