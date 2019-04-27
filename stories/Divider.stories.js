@@ -8,7 +8,7 @@ import { withInfo } from "@storybook/addon-info";
 storiesOf("Divider", module)
   .addDecorator(withInfo)
   .add("basic", () => (
-    <div style={{ margin: 100 }}>
+    <div style={{ margin: 20 }}>
       <Divider />
     </div>
   ));
