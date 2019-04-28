@@ -1,4 +1,4 @@
-# [spectre-react-lib](http://spectre-react-lib.philvr.com)) 
+# [spectre-react-lib](https://spectre-react-lib.philvr.com)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)
 [![npm](https://img.shields.io/npm/v/spectre-react-lib.svg?style=for-the-badge)](https://www.npmjs.com/package/spectre-react-lib)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/spectre-react-lib.svg?style=for-the-badge)](https://bundlephobia.com/result?p=spectre-react-lib)
