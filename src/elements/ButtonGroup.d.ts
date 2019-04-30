@@ -5,7 +5,6 @@ interface Props {
   block?: boolean;
 }
 
-/** A simple button */
 declare const ButtonGroup: React.FunctionComponent<Props>;
 
 export default ButtonGroup;
