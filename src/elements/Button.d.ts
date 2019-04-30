@@ -4,6 +4,7 @@ import ButtonGroup from "./ButtonGroup";
 
 interface Props {
   className?: string;
+  style?: React.CSSProperties;
   /** An element type to render as (string or function). */
   as?: React.Component | string;
   large?: boolean;
