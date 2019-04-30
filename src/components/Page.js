@@ -4,12 +4,6 @@ import _ from "lodash";
 
 import { addClass } from "../helpers";
 
-/**
- * A page for containing elements.
- * @param {Object} props Properties for the component.
- * @returns {XML} JSX Component
- * @constructor
- */
 const Page = props => {
   const { centered } = props;
   // add the className prop to the className
