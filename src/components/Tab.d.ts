@@ -12,3 +12,5 @@ interface TabComponent extends React.FunctionComponent<Props> {
 }
 
 declare const Tab: TabComponent;
+
+export default Tab;
