@@ -4,11 +4,6 @@ import _ from "lodash";
 
 import { addClass, onEnter } from "../helpers";
 
-/**
- * @param {Object} props Properties for the component.
- * @returns {XML} JSX Component
- * @constructor
- */
 const Pagination = props => {
   const { activePage, totalPages, centered } = props;
 

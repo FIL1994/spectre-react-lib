@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import GridColumn from "./GridColumn";
 
 export interface GridProps {
