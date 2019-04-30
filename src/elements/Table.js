@@ -4,12 +4,6 @@ import _ from "lodash";
 
 import { addClass } from "../helpers";
 
-/**
- * A table for a data set
- * @param {Object} props Properties for the component.
- * @returns {XML} JSX Component
- * @constructor
- */
 const Table = props => {
   const { striped, hover, centered } = props;
   // add the className prop to the className

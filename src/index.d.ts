@@ -8,6 +8,8 @@ import Button from "./elements/Button";
 import EmptyState from "./components/EmptyState";
 import Page from "./components/Page";
 import Pagination from "./components/Pagination";
+import Tab from "./components/Tab";
+import Table from "./elements/Table";
 
 export {
   Divider,
@@ -19,5 +21,7 @@ export {
   Button,
   EmptyState,
   Page,
-  Pagination
+  Pagination,
+  Tab,
+  Table
 };
