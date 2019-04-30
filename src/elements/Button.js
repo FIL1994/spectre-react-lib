@@ -4,12 +4,6 @@ import _ from "lodash";
 
 import { addClass } from "../helpers";
 
-/**
- * A simple button.
- * @param {Object} props Properties for the component.
- * @returns {XML} JSX Component
- * @constructor
- */
 const Button = props => {
   const {
     small,
