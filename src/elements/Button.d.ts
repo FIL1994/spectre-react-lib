@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Size } from "../generics";
+import ButtonGroup from "./ButtonGroup";
 
 interface Props {
   className?: string;
@@ -19,7 +20,11 @@ interface Props {
   size?: Size;
 }
 
+interface ButtonComponent extends React.FunctionComponent<Props> {
+  Group: typeof ButtonGroup;
+}
+
 /** A simple button */
-declare const Button: React.FunctionComponent<Props>;
+declare const Button: ButtonComponent;
 
 export default Button;

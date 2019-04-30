@@ -43,4 +43,16 @@ storiesOf("Button", module)
         as={text("as", undefined)}
       />
     </div>
+  ))
+  .add("group", () => (
+    <div style={{ margin: 20 }}>
+      <Button.Group
+        className={text("className", "")}
+        block={boolean("block", false)}
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </Button.Group>
+    </div>
   ));
