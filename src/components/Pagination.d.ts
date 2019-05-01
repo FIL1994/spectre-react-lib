@@ -4,7 +4,7 @@ interface Props {
   className?: string;
   activePage?: number;
   centered?: boolean;
-  onClick: (event: React.SyntheticEvent) => void;
+  onClick: (event: React.SyntheticEvent, activePage: number) => void;
   totalPages: number;
 }
 
