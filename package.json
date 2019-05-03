@@ -8,7 +8,8 @@
     "test": "jest --config=jest.config.js --verbose --coverage",
     "examples": "npm run storybook",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,19 @@
   ],
   "author": "Philip Van Raalte",
   "license": "MIT",
+  "release-it": {
+    "git": {
+      "commitMessage": "v${version}",
+      "tagAnnotation": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "releaseName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    }
+  },
   "peerDependencies": {
     "react": ">= 15.6.0",
     "react-dom": ">= 15.6.0",
@@ -66,6 +80,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-testing-library": "^5.4.4",
+    "release-it": "^11.0.2",
     "rollup": "^1.1.0",
     "rollup-plugin-babel": "^4.3.1",
     "rollup-plugin-commonjs": "^9.2.0",
