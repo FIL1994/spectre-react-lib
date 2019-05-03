@@ -1,3 +1,4 @@
+/* eslint no-script-url: 0 */
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
@@ -41,7 +42,7 @@ const Pagination = props => {
         onKeyPress={!prevEnabled ? _.noop : onEnter(onClickBack)}
       >
         <a
-          href="#"
+          href="javascript:void(0);"
           tabIndex="-1"
           style={{ cursor: "pointer" }}
           {...(prevEnabled ? {} : disabledTab)}
@@ -60,7 +61,11 @@ const Pagination = props => {
             onClick={onClick}
             onKeyPress={onEnter(onClick)}
           >
-            <a href="#" tabIndex="-1" style={{ cursor: "pointer" }}>
+            <a
+              href="javascript:void(0);"
+              tabIndex="-1"
+              style={{ cursor: "pointer" }}
+            >
               {index + 1}
             </a>
           </li>
@@ -73,7 +78,7 @@ const Pagination = props => {
         onKeyPress={!nextEnabled ? _.noop : onEnter(onClickForward)}
       >
         <a
-          href="#"
+          href="javascript:void(0);"
           tabIndex="-1"
           style={{ cursor: "pointer" }}
           {...(nextEnabled ? {} : disabledTab)}
