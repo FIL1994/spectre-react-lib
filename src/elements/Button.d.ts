@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Size } from "../generics";
 import ButtonGroup from "./ButtonGroup";
+import { AsComponent } from "../typeHelpers";
 
 interface Props {
   className?: string;
   style?: React.CSSProperties;
   /** An element type to render as (string or function). */
-  as?: React.Component | string;
   large?: boolean;
   small?: boolean;
   block?: boolean;
@@ -21,11 +21,16 @@ interface Props {
   size?: Size;
 }
 
-interface ButtonComponent extends React.FunctionComponent<Props> {
-  Group: typeof ButtonGroup;
-}
+type ButtonProps<Type extends React.ElementType> = AsComponent<Props, Type>;
 
 /** A simple button */
-declare const Button: ButtonComponent;
+declare function Button<Type extends React.ElementType = "button">(
+  props: ButtonProps<Type>
+): JSX.Element;
 
+declare namespace Button {
+  var Group: typeof ButtonGroup;
+}
+
+export { Button };
 export default Button;
