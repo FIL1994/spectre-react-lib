@@ -1,11 +1,28 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
+    // Enable top-level await, and other modern ESM features.
+    "target": "ESNext",
     "module": "ESNext",
+    // Enable node-style module resolution, for things like npm package imports.
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "skipLibCheck": true,
+    // Enable stricter transpilation for better output.
+    "isolatedModules": true,
+    "noEmit": true,
+    // Enable strict type checking.
     "strict": true,
-    "noEmit": true
+    // Error when a value import is only used as a type.
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    // "jsxImportSource": "react",
+    // "jsxImportSource": "react",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": false,
+    "allowSyntheticDefaultImports": true
   }
 }
