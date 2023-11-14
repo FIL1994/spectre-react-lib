@@ -22,26 +22,8 @@
     "build": "tsup --config tsup.config.ts",
     "format": "prettier --cache -w .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "treeshake": true,
-    "sourcemap": "inline",
-    "minify": true,
-    "clean": true,
-    "dts": true,
-    "splitting": false,
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "external": [
-      "react"
-    ],
-    "injectStyle": false
+    "build-storybook": "storybook build",
+    "tsc": "tsc --noEmit"
   },
   "types": "./dist/index.d.ts",
   "exports": {

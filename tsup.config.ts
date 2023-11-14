@@ -8,4 +8,12 @@ export default defineConfig({
   loader: {
     '.js': 'jsx',
   },
+  external: ['react', 'react-dom'],
+  treeshake: true,
+  sourcemap: 'inline',
+  minify: true,
+  clean: true,
+  dts: true,
+  splitting: false,
+  injectStyle: false,
 });
