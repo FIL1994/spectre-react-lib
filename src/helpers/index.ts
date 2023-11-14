@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import isNil from 'lodash/isNil';
 import type React from 'react';
 
 /**
@@ -8,7 +9,8 @@ import type React from 'react';
  * @returns {String} JSX Component
  */
 export function addClass(defaultClass: string, newClass: string | undefined) {
-  return `${defaultClass} ${_.isString(newClass) ? newClass : ''}`.trim();
+  if (isNil(newClass)) return defaultClass;
+  return `${defaultClass} ${isString(newClass) ? newClass : ''}`.trim();
 }
 
 /**

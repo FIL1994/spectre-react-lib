@@ -1,20 +1,20 @@
 /** HTML tag element string (i.e a, div, table, etc.)  */
-type ElementString = keyof JSX.IntrinsicElements;
+export type ElementString = keyof JSX.IntrinsicElements;
 
 /** The React props on a html element */
-type HTMLElementProps<
+export type HTMLElementProps<
   Element extends ElementString = "div"
 > = JSX.IntrinsicElements[Element];
 
 /** Get the props from a React component or a html element */
-type PropsOrElementProps<Type> = Type extends React.ComponentType
+export type PropsOrElementProps<Type> = Type extends React.ComponentType
   ? React.ComponentProps<Type>
   : Type extends ElementString
   ? HTMLElementProps<Type>
   : never;
 
 /** Spread the props from a type */
-type SpreadProps<Props> = {
+export type SpreadProps<Props> = {
   [P in keyof Props]: Props[P];
 };
 
