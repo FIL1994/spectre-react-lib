@@ -15,11 +15,13 @@ jobs:
     steps:
       - name: Release Please
         uses: google-github-actions/release-please-action@v3
+        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: spectre-react-lib
 
+      - run: echo "${{ steps }} "
       - run: echo "Release created ${{ steps.release.outputs.release_created }}"
       - run: echo "Releases created ${{ steps.release.outputs.releases_created }}"
       - run: echo "${{ steps.release.outputs['.'] }} "
