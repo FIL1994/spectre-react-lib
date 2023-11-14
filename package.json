@@ -19,7 +19,9 @@
   "homepage": "https://github.com/FIL1994/spectre-react-lib#readme",
   "scripts": {
     "build": "tsup --config tsup.config.ts",
-    "format": "prettier --cache -w ."
+    "format": "prettier --cache -w .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "tsup": {
     "entry": [
@@ -54,9 +56,21 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.3",
+    "@storybook/react": "^7.5.3",
+    "@storybook/react-vite": "^7.5.3",
+    "@storybook/testing-library": "^0.2.2",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
+    "eslint-plugin-storybook": "^0.6.15",
     "prettier": "^3.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.5.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   },
