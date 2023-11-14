@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: spectre-react-lib
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Install dependencies
+        run: pnpm install
+        if: ${{ steps.release.outputs.release_created }}
