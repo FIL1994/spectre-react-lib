@@ -20,6 +20,7 @@
   "homepage": "https://github.com/FIL1994/spectre-react-lib#readme",
   "scripts": {
     "build": "tsup --config tsup.config.ts",
+    "dev": "pnpm storybook",
     "format": "prettier --cache -w .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
