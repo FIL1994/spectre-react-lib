@@ -7,7 +7,7 @@
     "target": "ESNext",
     "module": "ESNext",
     // Enable node-style module resolution, for things like npm package imports.
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
     // Enable stricter transpilation for better output.
@@ -20,6 +20,7 @@
     "jsx": "react-jsx",
     // "jsxImportSource": "react",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["bun-types"],
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
