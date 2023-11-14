@@ -39,12 +39,12 @@ interface TableHeadProps {
   >;
 }
 
-Table.Head = ({
+Table.Head = function TableHead({
   headings,
   headingProps,
   onHeadingClick,
   ...props
-}: TableHeadProps) => {
+}: TableHeadProps) {
   return (
     <thead {...props}>
       <tr {...headingProps}>
@@ -72,6 +72,10 @@ interface PropsWithChildren {
   className?: string;
 }
 
-Table.Body = (props: PropsWithChildren) => <tbody {...props} />;
+Table.Body = function TableBody(props: PropsWithChildren) {
+  return <tbody {...props} />;
+};
 
-Table.Row = (props: PropsWithChildren) => <tr {...props} />;
+Table.Row = function TableRow(props: PropsWithChildren) {
+  return <tr {...props} />;
+};

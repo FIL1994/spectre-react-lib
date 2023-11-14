@@ -11,6 +11,11 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:storybook/recommended',
   ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   overrides: [
     {
       env: {

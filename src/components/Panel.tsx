@@ -14,9 +14,9 @@ export interface PanelProps {
  * A flexible view container with an auto-expand content section.
  */
 export const Panel = ({ children, title, footer, ...props }: PanelProps) => {
-  let className = addClass('panel', props.className);
+  const className = addClass('panel', props.className);
 
-  let header = isNil(title) ? (
+  const header = isNil(title) ? (
     <Fragment />
   ) : (
     <div className="panel-header">
