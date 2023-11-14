@@ -1,5 +1,3 @@
 # CHANGELOG
 
-The changelog is automatically updated using
-[semantic-release](https://github.com/semantic-release/semantic-release). You
-can see it on the [releases page](https://github.com/FIL1994/spectre-react-lib/releases).
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
