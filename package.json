@@ -24,7 +24,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "tsc": "tsc --noEmit",
-    "test": "bun test --coverage"
+    "test": "bun test --coverage",
+    "release": "bunx release",
+    "release:beta": "bunx release --pre beta"
   },
   "types": "./dist/index.d.ts",
   "exports": {
