@@ -1,7 +1,5 @@
 /* eslint no-script-url: 0 */
-import React, { type ReactText } from 'react';
-import omit from 'lodash/omit';
-
+import React from 'react';
 import { addClass, onEnter } from '../helpers';
 
 const noop = () => {};
@@ -23,15 +21,6 @@ const Pagination = ({
 }: Props) => {
   let className = addClass('pagination', props.className);
 
-  // remove unnecessary props
-  let myProps = omit(props, [
-    'children',
-    'onClick',
-    'activePage',
-    'totalPages',
-    'centered',
-  ]);
-
   const pages = Array.from(new Array(Math.ceil(totalPages)), () => undefined);
 
   const prevEnabled = !(activePage <= 1);
@@ -45,7 +34,7 @@ const Pagination = ({
   return (
     <ul
       style={centered ? { justifyContent: 'center' } : {}}
-      {...myProps}
+      {...props}
       className={className}
     >
       <li

@@ -1,5 +1,4 @@
 import React from 'react';
-import omit from 'lodash/omit';
 import { addClass } from '../helpers';
 
 export type Size =
@@ -46,20 +45,21 @@ interface Props {
   size?: Size;
 }
 
-const Button = (props: Props) => {
-  const {
-    small,
-    large,
-    block,
-    primary,
-    centered,
-    disabled,
-    success,
-    error,
-    loading,
-    link,
-    inputGroup,
-  } = props;
+const Button = ({
+  small,
+  large,
+  block,
+  primary,
+  centered,
+  disabled,
+  success,
+  error,
+  loading,
+  link,
+  inputGroup,
+  size,
+  ...props
+}: Props) => {
   let className = 'btn';
 
   let otherProps = {
@@ -74,8 +74,8 @@ const Button = (props: Props) => {
   >;
 
   // allow size to be passed as a string or a number
-  if (props.size) {
-    className = `${className} col-${props.size.toString().trim()}`;
+  if (size) {
+    className = `${className} col-${size.toString().trim()}`;
   }
 
   if (large) {
@@ -124,24 +124,8 @@ const Button = (props: Props) => {
 
   className = addClass(className, props.className);
 
-  // remove unnecessary props
-  let myProps = omit(props, [
-    'small',
-    'large',
-    'block',
-    'primary',
-    'centered',
-    'disabled',
-    'as',
-    'success',
-    'error',
-    'loading',
-    'link',
-    'inputGroup',
-  ]);
-
   return (
-    <button type="button" {...myProps} {...otherProps} className={className} />
+    <button type="button" {...props} {...otherProps} className={className} />
   );
 };
 

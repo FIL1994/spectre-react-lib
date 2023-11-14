@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import isNil from 'lodash/isNil';
+import { isNil } from '../utils';
 import { addClass } from '../helpers';
 
 export interface PanelProps {
