@@ -14,7 +14,7 @@ Spectre.css and React integration
 Installation:
 
 ```sh
-npm i -S spectre-react-lib
+npm install spectre-react-lib
 ```
 
 Importing components:
