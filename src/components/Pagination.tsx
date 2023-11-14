@@ -19,7 +19,7 @@ export function Pagination({
   onClick,
   ...props
 }: Props) {
-  let className = addClass('pagination', props.className);
+  const className = addClass('pagination', props.className);
 
   const pages = Array.from(new Array(Math.ceil(totalPages)), () => undefined);
 

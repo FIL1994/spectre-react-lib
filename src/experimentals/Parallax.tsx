@@ -23,7 +23,7 @@ export const Parallax = ({
   bottomRight,
   ...props
 }: ParallaxProps) => {
-  let className = addClass('parallax', props.className);
+  const className = addClass('parallax', props.className);
 
   return (
     <div {...props} className={className}>
