@@ -25,7 +25,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "tsc": "tsc --noEmit",
-    "test": "bun test --coverage"
+    "test": "bun test --coverage",
+    "release:help": "bunx release-please --help",
+    "release:beta": "bunx release-please release-pr --prerelease-type beta --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN",
+    "release:bootstrap": "bunx release-please bootstrap --prerelease --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN --initial-version 0.4.5 --release-type node --bump-minor-pre-major --bump-patch-for-minor-pre-major"
   },
   "types": "./dist/index.d.ts",
   "exports": {
