@@ -2,8 +2,9 @@ name: Bun Test
 
 on:
   push:
-    branches: [develop]
+    branches: [master]
   pull_request:
+    types: [opened, reopened]
 
 jobs:
   bun-test:
