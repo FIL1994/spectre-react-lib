@@ -45,7 +45,7 @@ interface Props {
   size?: Size;
 }
 
-const Button = ({
+export function Button({
   small,
   large,
   block,
@@ -59,7 +59,7 @@ const Button = ({
   inputGroup,
   size,
   ...props
-}: Props) => {
+}: Props) {
   let className = 'btn';
 
   let otherProps = {
@@ -127,9 +127,10 @@ const Button = ({
   return (
     <button type="button" {...props} {...otherProps} className={className} />
   );
-};
+}
 
 interface ButtonGroupProps {
+  children?: React.ReactNode;
   className?: string;
   block?: boolean;
 }
@@ -145,5 +146,3 @@ Button.Group = ({ block, ...props }: ButtonGroupProps) => {
 
   return <div {...props} className={className} />;
 };
-
-export default Button;

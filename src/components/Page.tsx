@@ -6,8 +6,7 @@ interface Props {
 }
 
 /** A page for containing elements. */
-const Page = ({ centered, ...props }: Props) => {
-  
+export const Page = ({ centered, ...props }: Props) => {
   let className = addClass('page container', props.className);
 
   if (centered) {
@@ -16,5 +15,3 @@ const Page = ({ centered, ...props }: Props) => {
 
   return <div {...props} className={className} />;
 };
-
-export default Page;

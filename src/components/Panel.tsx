@@ -13,7 +13,7 @@ export interface PanelProps {
 /**
  * A flexible view container with an auto-expand content section.
  */
-const Panel = ({ children, title, footer, ...props }: PanelProps) => {
+export const Panel = ({ children, title, footer, ...props }: PanelProps) => {
   let className = addClass('panel', props.className);
 
   let header = isNil(title) ? (
@@ -34,5 +34,3 @@ const Panel = ({ children, title, footer, ...props }: PanelProps) => {
     </div>
   );
 };
-
-export default Panel;

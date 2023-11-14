@@ -10,7 +10,7 @@ interface Props {
 /**
  * A placeholder for first time use, empty data and error screens.
  */
-const EmptyState = ({ children, title, icon, ...props }: Props) => {
+export const EmptyState = ({ children, title, icon, ...props }: Props) => {
   let className = addClass('empty', props.className);
 
   return (
@@ -21,5 +21,3 @@ const EmptyState = ({ children, title, icon, ...props }: Props) => {
     </div>
   );
 };
-
-export default EmptyState;

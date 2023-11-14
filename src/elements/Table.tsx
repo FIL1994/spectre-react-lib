@@ -9,7 +9,7 @@ interface Props {
   centered?: boolean;
 }
 
-const Table = ({ striped, hover, centered, ...props }: Props) => {
+export function Table({ striped, hover, centered, ...props }: Props) {
   let className = addClass('table', props.className);
 
   if (striped) {
@@ -27,7 +27,7 @@ const Table = ({ striped, hover, centered, ...props }: Props) => {
   className = addClass(className, props.className);
 
   return <table {...props} className={className} />;
-};
+}
 
 interface TableHeadProps {
   headings: string[];
@@ -71,5 +71,3 @@ interface PropsWithChildren {
 Table.Body = (props: PropsWithChildren) => <tbody {...props} />;
 
 Table.Row = (props: PropsWithChildren) => <tr {...props} />;
-
-export default Table;

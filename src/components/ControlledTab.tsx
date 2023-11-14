@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import Tab from './Tab';
+import { Tab } from './Tab';
 
 import { onEnter } from '../helpers';
 
@@ -12,7 +12,7 @@ interface Props {
   defaultActive?: string;
 }
 
-class ControlledTab extends Component<Props> {
+export class ControlledTab extends Component<Props> {
   state = {
     active: this.props.defaultActive || this.props.options[0]?.value,
   };
@@ -52,5 +52,3 @@ class ControlledTab extends Component<Props> {
     );
   }
 }
-
-export default ControlledTab;

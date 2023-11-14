@@ -6,7 +6,7 @@ interface GridProps {
   gapless?: boolean;
 }
 
-const Grid = ({ gapless, ...props }: GridProps) => {
+export function Grid({ gapless, ...props }: GridProps) {
   let className = addClass('columns', props.className);
 
   if (gapless) {
@@ -14,7 +14,7 @@ const Grid = ({ gapless, ...props }: GridProps) => {
   }
 
   return <div {...props} className={className} />;
-};
+}
 
 interface GridColumnProps {
   className?: string;
@@ -25,5 +25,3 @@ Grid.Column = ({ width, ...props }: GridColumnProps) => {
   let className = addClass(`column col-${width}`, props.className);
   return <div {...props} className={className} />;
 };
-
-export default Grid;

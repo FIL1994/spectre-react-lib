@@ -12,13 +12,13 @@ interface Props {
   totalPages: number;
 }
 
-const Pagination = ({
+export function Pagination({
   activePage = 1,
   totalPages,
   centered,
   onClick,
   ...props
-}: Props) => {
+}: Props) {
   let className = addClass('pagination', props.className);
 
   const pages = Array.from(new Array(Math.ceil(totalPages)), () => undefined);
@@ -84,6 +84,6 @@ const Pagination = ({
       </li>
     </ul>
   );
-};
+}
 
 export default Pagination;

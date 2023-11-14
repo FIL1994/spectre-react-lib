@@ -8,7 +8,7 @@ interface LoadingProps {
 /**
  * A loading indicator.
  */
-const Loading = ({ large, ...props }: LoadingProps) => {
+export const Loading = ({ large, ...props }: LoadingProps) => {
   let className = 'loading';
 
   if (large) {
@@ -19,5 +19,3 @@ const Loading = ({ large, ...props }: LoadingProps) => {
 
   return <div {...props} className={className} />;
 };
-
-export default Loading;

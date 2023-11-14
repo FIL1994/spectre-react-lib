@@ -12,7 +12,7 @@ interface ToastProps {
 /**
  * A toast to show an alert or information.
  */
-const Toast = ({ primary, centered, ...props }: ToastProps) => {
+export const Toast = ({ primary, centered, ...props }: ToastProps) => {
   let className = addClass('toast', props.className);
 
   if (primary) {
@@ -25,5 +25,3 @@ const Toast = ({ primary, centered, ...props }: ToastProps) => {
 
   return <div {...props} className={className} />;
 };
-
-export default Toast;

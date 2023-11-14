@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { addClass } from '../helpers';
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
 /**
  * A tab for switching between views
  */
-const Tab = ({ block, ...props }: Props) => {
+export function Tab({ block, ...props }: Props) {
   let className = addClass('tab', props.className);
 
   if (block) {
@@ -22,7 +21,7 @@ const Tab = ({ block, ...props }: Props) => {
   className = addClass(className, props.className);
 
   return <ul {...props} className={className} />;
-};
+}
 
 interface TabHeadingProps {
   className?: string;
@@ -45,5 +44,3 @@ Tab.Heading = ({ active, ...props }: TabHeadingProps) => {
 
   return <li {...props} className={className} />;
 };
-
-export default Tab;

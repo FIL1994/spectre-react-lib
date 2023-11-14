@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from './Button';
+import { Button } from './Button';
 
 const meta = {
   title: 'Button',
@@ -64,6 +64,18 @@ export const Sizes: Story = {
         <Button size={2}>Size 2</Button>
         <Button size={1}>Size 1</Button>
       </>
+    );
+  },
+};
+
+export const Group: Story = {
+  render() {
+    return (
+      <Button.Group>
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </Button.Group>
     );
   },
 };

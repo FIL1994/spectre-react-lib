@@ -8,7 +8,7 @@ interface DividerProps {
 /**
  * A divider for separating elements.
  */
-const Divider = (props: DividerProps) => {
+export const Divider = (props: DividerProps) => {
   let className = addClass('divider', props.className);
 
   if (props.size !== undefined) {
@@ -20,5 +20,3 @@ const Divider = (props: DividerProps) => {
 
   return <div {...props} className={className} />;
 };
-
-export default Divider;

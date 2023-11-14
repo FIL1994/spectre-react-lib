@@ -14,7 +14,7 @@ interface ParallaxProps {
 /**
  * A hover parallax effect.
  */
-const Parallax = ({
+export const Parallax = ({
   children,
   title,
   topLeft,
@@ -23,7 +23,6 @@ const Parallax = ({
   bottomRight,
   ...props
 }: ParallaxProps) => {
-  
   let className = addClass('parallax', props.className);
 
   return (
@@ -65,5 +64,3 @@ const Parallax = ({
     </div>
   );
 };
-
-export default Parallax;
