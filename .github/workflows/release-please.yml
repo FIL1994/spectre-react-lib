@@ -1,7 +1,6 @@
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 permissions:
   contents: write
@@ -45,6 +44,7 @@ jobs:
         run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs.releases_created  }}
       - name: Publish
         run: pnpm publish --no-git-checks --access public
         if: ${{ steps.release.outputs.releases_created  }}
