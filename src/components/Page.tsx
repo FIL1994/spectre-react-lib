@@ -1,6 +1,8 @@
+import type React from 'react';
 import { addClass } from '../helpers';
 
 interface Props {
+  children?: React.ReactNode;
   className?: string;
   centered?: boolean;
 }
