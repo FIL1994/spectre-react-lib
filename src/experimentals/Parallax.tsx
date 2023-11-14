@@ -23,7 +23,7 @@ const Parallax = ({
   bottomRight,
   ...props
 }: ParallaxProps) => {
-  // add the className prop to the className
+  
   let className = addClass('parallax', props.className);
 
   return (

@@ -124,7 +124,7 @@ const Button = (props: Props) => {
     className = addClass(className, 'disabled');
   }
 
-  // add the className prop to the className
+  
   className = addClass(className, props.className);
 
   // remove unnecessary props

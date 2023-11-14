@@ -1,19 +1,25 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import Tab from "./Tab";
+import React, { Component, Fragment } from 'react';
+import Tab from './Tab';
 
-import { onEnter } from "../helpers";
+import { onEnter } from '../helpers';
 
-class ControlledTab extends Component {
+interface Props {
+  options: {
+    label: string;
+    value: string;
+    render(): React.ReactNode;
+  }[];
+  defaultActive?: string;
+}
+
+class ControlledTab extends Component<Props> {
   state = {
-    active:
-      this.props.defaultActive ||
-      (this.props.options[0] && this.props.options[0].value)
+    active: this.props.defaultActive || this.props.options[0]?.value,
   };
 
   renderActive = () => {
     const activeOption = this.props.options.find(
-      o => this.state.active === o.value
+      (o) => this.state.active === o.value
     );
 
     return activeOption ? activeOption.render() : <Fragment />;
@@ -46,21 +52,5 @@ class ControlledTab extends Component {
     );
   }
 }
-
-ControlledTab.defaultProps = {
-  defaultActive: undefined,
-  options: []
-};
-
-ControlledTab.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-      render: PropTypes.func.isRequired
-    })
-  ),
-  defaultActive: PropTypes.string
-};
 
 export default ControlledTab;
