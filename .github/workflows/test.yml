@@ -1,4 +1,10 @@
-name: bun-workflow
+name: Bun Test
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+
 jobs:
   bun-test:
     name: bun-test
