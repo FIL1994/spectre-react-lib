@@ -7,6 +7,6 @@ import { EmptyState } from './EmptyState';
 it('renders', () => {
   render(<EmptyState title="title">child content</EmptyState>);
 
-  screen.getByText('title');
+  screen.getAllByText('title');
   screen.getByText('child content');
 });

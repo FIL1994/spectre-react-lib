@@ -4,6 +4,7 @@ import { addClass } from '../helpers';
 interface Props {
   className?: string;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
   striped?: boolean;
   hover?: boolean;
   centered?: boolean;
@@ -32,7 +33,10 @@ export function Table({ striped, hover, centered, ...props }: Props) {
 interface TableHeadProps {
   headings: string[];
   onHeadingClick?(heading: string): void;
-  headingProps: object;
+  headingProps?: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLTableRowElement>,
+    HTMLTableRowElement
+  >;
 }
 
 Table.Head = ({
