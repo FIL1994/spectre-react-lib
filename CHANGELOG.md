@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.2](https://github.com/FIL1994/spectre-react-lib/compare/v0.5.1...v0.5.2) (2023-11-14)
+
+
+### Bug Fixes
+
+* check step output ([#92](https://github.com/FIL1994/spectre-react-lib/issues/92)) ([a61543e](https://github.com/FIL1994/spectre-react-lib/commit/a61543e81eb88dfead1f99904a53ae8a9ae5f4a7))
+* release outputs ([#89](https://github.com/FIL1994/spectre-react-lib/issues/89)) ([a19dfda](https://github.com/FIL1994/spectre-react-lib/commit/a19dfda1a213a228273d3fea6e032383c6c5835d))
+* release step id ([#91](https://github.com/FIL1994/spectre-react-lib/issues/91)) ([572cdda](https://github.com/FIL1994/spectre-react-lib/commit/572cddaefc6916410f0f37a21f0b2df81b4abe36))
+
 ## [0.5.1](https://github.com/FIL1994/spectre-react-lib/compare/v0.5.0...v0.5.1) (2023-11-14)
 
 
