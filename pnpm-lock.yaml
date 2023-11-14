@@ -65,6 +65,9 @@ devDependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  spectre.css:
+    specifier: ^0.5.9
+    version: 0.5.9
   storybook:
     specifier: ^7.5.3
     version: 7.5.3
@@ -7394,6 +7397,10 @@ packages:
 
   /spdx-license-ids@3.0.16:
     resolution: {integrity: sha512-eWN+LnM3GR6gPu35WxNgbGl8rmY1AEmoMDvL/QD6zYmPWgywxWqJWNdLGT+ke8dKNWrcYgYjPpG5gbTfghP8rw==}
+    dev: true
+
+  /spectre.css@0.5.9:
+    resolution: {integrity: sha512-9jUqwZmCnvflrxFGcK+ize43TvjwDjqMwZPVubEtSIHzvinH0TBUESm1LcOJx3Ur7bdPaeOHQIjOqBl1Y5kLFw==}
     dev: true
 
   /sprintf-js@1.0.3:
