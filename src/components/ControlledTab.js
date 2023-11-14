@@ -32,7 +32,7 @@ class ControlledTab extends Component {
               <Fragment key={value}>
                 <Tab.Heading
                   active={this.state.active === value}
-                  tabIndex="0"
+                  tabIndex={0}
                   onClick={onClick}
                   onKeyPress={onEnter(onClick)}
                   children={<a href="#">{label}</a>}

@@ -37,13 +37,13 @@ const Pagination = props => {
     >
       <li
         className={`page-item ${prevEnabled ? "" : "disabled"}`}
-        tabIndex="0"
+        tabIndex={0}
         onClick={!prevEnabled ? _.noop : onClickBack}
         onKeyPress={!prevEnabled ? _.noop : onEnter(onClickBack)}
       >
         <a
           href="javascript:void(0);"
-          tabIndex="-1"
+          tabIndex={-1}
           style={{ cursor: "pointer" }}
           {...(prevEnabled ? {} : disabledTab)}
         >
@@ -57,13 +57,13 @@ const Pagination = props => {
           <li
             key={index}
             className={`page-item ${index + 1 === activePage ? "active" : ""}`}
-            tabIndex="0"
+            tabIndex={0}
             onClick={onClick}
             onKeyPress={onEnter(onClick)}
           >
             <a
               href="javascript:void(0);"
-              tabIndex="-1"
+              tabIndex={-1}
               style={{ cursor: "pointer" }}
             >
               {index + 1}
@@ -73,13 +73,13 @@ const Pagination = props => {
       })}
       <li
         className={`page-item ${nextEnabled ? "" : "disabled"}`}
-        tabIndex="0"
+        tabIndex={0}
         onClick={!nextEnabled ? _.noop : onClickForward}
         onKeyPress={!nextEnabled ? _.noop : onEnter(onClickForward)}
       >
         <a
           href="javascript:void(0);"
-          tabIndex="-1"
+          tabIndex={-1}
           style={{ cursor: "pointer" }}
           {...(nextEnabled ? {} : disabledTab)}
         >

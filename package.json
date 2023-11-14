@@ -9,6 +9,7 @@
     "spectre",
     "ui"
   ],
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/FIL1994/spectre-react-lib"
@@ -64,6 +65,7 @@
     "@storybook/react": "^7.5.3",
     "@storybook/react-vite": "^7.5.3",
     "@storybook/testing-library": "^0.2.2",
+    "@types/prop-types": "^15.7.10",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "eslint-plugin-storybook": "^0.6.15",
@@ -81,5 +83,10 @@
   "resolutions": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.201",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.8.1"
   }
 }
