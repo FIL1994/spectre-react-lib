@@ -21,7 +21,7 @@ interface GridColumnProps {
   width: Size;
 }
 
-Grid.Column = ({ width, ...props }: GridColumnProps) => {
-  let className = addClass(`column col-${width}`, props.className);
+Grid.Column = function GridColumn({ width, ...props }: GridColumnProps) {
+  const className = addClass(`column col-${width}`, props.className);
   return <div {...props} className={className} />;
 };

@@ -41,8 +41,9 @@ export class ControlledTab extends Component<Props> {
                   tabIndex={0}
                   onClick={onClick}
                   onKeyPress={onEnter(onClick)}
-                  children={<a href="#">{label}</a>}
-                />
+                >
+                  <a href="#">{label}</a>
+                </Tab.Heading>
               </Fragment>
             );
           })}

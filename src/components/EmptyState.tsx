@@ -11,7 +11,7 @@ interface Props {
  * A placeholder for first time use, empty data and error screens.
  */
 export const EmptyState = ({ children, title, icon, ...props }: Props) => {
-  let className = addClass('empty', props.className);
+  const className = addClass('empty', props.className);
 
   return (
     <div {...props} className={className}>

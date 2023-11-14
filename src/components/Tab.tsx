@@ -33,7 +33,7 @@ interface TabHeadingProps {
   onKeyPress?: React.KeyboardEventHandler;
 }
 
-Tab.Heading = ({ active, ...props }: TabHeadingProps) => {
+Tab.Heading = function TabHeading({ active, ...props }: TabHeadingProps) {
   let className = addClass('tab-item', props.className);
 
   if (active) {

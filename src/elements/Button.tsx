@@ -62,7 +62,7 @@ export function Button({
 }: Props) {
   let className = 'btn';
 
-  let otherProps = {
+  const otherProps = {
     disabled: false,
     tabIndex: undefined,
   } as Pick<
@@ -135,7 +135,7 @@ interface ButtonGroupProps {
   block?: boolean;
 }
 
-Button.Group = ({ block, ...props }: ButtonGroupProps) => {
+Button.Group = function ButtonGroup({ block, ...props }: ButtonGroupProps) {
   let className = 'btn-group';
 
   if (block) {
