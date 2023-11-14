@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EmptyState } from './EmptyState';
 
 const meta = {
-  title: 'EmptyState',
+  title: 'Components/EmptyState',
   component: EmptyState,
   parameters: {},
   tags: ['autodocs'],
