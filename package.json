@@ -24,9 +24,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "tsc": "tsc --noEmit",
-    "test": "bun test --coverage",
-    "release": "bunx release",
-    "release:beta": "bunx release --pre beta"
+    "test": "bun test --coverage"
   },
   "types": "./dist/index.d.ts",
   "exports": {
@@ -63,7 +61,6 @@
     "prettier": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "release-it": "^17.0.0",
     "spectre.css": "^0.5.9",
     "storybook": "^7.5.3",
     "tsup": "^7.2.0",
