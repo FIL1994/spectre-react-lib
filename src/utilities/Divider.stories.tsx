@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Divider from './Divider';
-import 'spectre.css';
 
 const meta = {
   title: 'Divider',

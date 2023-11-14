@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './Button';
-import 'spectre.css';
 
 const meta = {
   title: 'Button',

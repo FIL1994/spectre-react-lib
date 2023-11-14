@@ -4,6 +4,7 @@ import { addClass } from '../helpers';
 
 export interface PanelProps {
   className?: string;
+  style?: React.CSSProperties;
   title?: React.ReactNode;
   footer?: React.ReactNode;
   children?: React.ReactNode;

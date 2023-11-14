@@ -1,6 +1,5 @@
 import React from 'react';
 import omit from 'lodash/omit';
-
 import { addClass } from '../helpers';
 
 export type Size =
@@ -33,7 +32,6 @@ interface Props {
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
-  /** An element type to render as (string or function). */
   large?: boolean;
   small?: boolean;
   block?: boolean;
@@ -124,7 +122,6 @@ const Button = (props: Props) => {
     className = addClass(className, 'disabled');
   }
 
-  
   className = addClass(className, props.className);
 
   // remove unnecessary props
