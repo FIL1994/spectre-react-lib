@@ -42,5 +42,17 @@ module.exports = {
     'no-plusplus': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
+    '@typescript-eslint/no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'ts-essentials',
+            message: 'Please use "import type {...} from "ts-essentials"".',
+            allowTypeImports: true,
+          },
+        ],
+      },
+    ],
   },
 };
