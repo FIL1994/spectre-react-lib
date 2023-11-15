@@ -32,12 +32,15 @@
     "release:bootstrap": "bunx release-please bootstrap --prerelease --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN --initial-version 0.4.5 --release-type node --bump-minor-pre-major --bump-patch-for-minor-pre-major"
   },
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     }
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
