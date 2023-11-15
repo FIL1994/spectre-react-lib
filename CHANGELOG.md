@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.1](https://github.com/FIL1994/spectre-react-lib/compare/v0.6.0...v0.6.1) (2023-11-15)
+
+
+### Bug Fixes
+
+* fixed ts-essentials import in dist js ([#100](https://github.com/FIL1994/spectre-react-lib/issues/100)) ([29b4c52](https://github.com/FIL1994/spectre-react-lib/commit/29b4c52740e0c515f9ae92ee444ac02358c81d96))
+
 ## [0.6.0](https://github.com/FIL1994/spectre-react-lib/compare/v0.5.3...v0.6.0) (2023-11-14)
 
 
