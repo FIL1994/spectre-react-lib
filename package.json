@@ -48,7 +48,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "^12.10.3",
+    "@happy-dom/global-registrator": "^14.11.0",
     "@storybook/addon-essentials": "^7.6.8",
     "@storybook/addon-interactions": "^7.6.8",
     "@storybook/addon-links": "^7.6.8",
