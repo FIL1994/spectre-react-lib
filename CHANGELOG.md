@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.2](https://github.com/FIL1994/spectre-react-lib/compare/v0.6.1...v0.6.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* updated workflows ([#114](https://github.com/FIL1994/spectre-react-lib/issues/114)) ([b497b94](https://github.com/FIL1994/spectre-react-lib/commit/b497b943772f84bb4fae4838e4aa884547da5a22))
+
 ## [0.6.1](https://github.com/FIL1994/spectre-react-lib/compare/v0.6.0...v0.6.1) (2023-11-15)
 
 
