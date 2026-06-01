@@ -10,6 +10,7 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
     "noEmit": true,

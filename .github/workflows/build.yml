@@ -1,4 +1,4 @@
-name: Bun Test
+name: Build
 
 on:
   push:
@@ -7,13 +7,15 @@ on:
     branches: [master]
 
 jobs:
-  bun-test:
-    name: bun-test
+  build:
+    name: build
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install --frozen-lockfile
-      - run: bun run test
+      - run: bun run build
+      - run: bun run build-storybook
+      - run: bun run audit

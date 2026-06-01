@@ -1,10 +1,12 @@
+import type React from 'react';
+
 /** HTML tag element string (i.e a, div, table, etc.)  */
-export type ElementString = keyof JSX.IntrinsicElements;
+export type ElementString = keyof React.JSX.IntrinsicElements;
 
 /** The React props on a html element */
 export type HTMLElementProps<
-  Element extends ElementString = "div"
-> = JSX.IntrinsicElements[Element];
+  Element extends ElementString = 'div',
+> = React.JSX.IntrinsicElements[Element];
 
 /** Get the props from a React component or a html element */
 export type PropsOrElementProps<Type> = Type extends React.ComponentType
