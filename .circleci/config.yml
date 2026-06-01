@@ -1,0 +1,38 @@
+version: 2.1
+
+jobs:
+  ci:
+    docker:
+      - image: cimg/node:20.19
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Bun install cache
+          keys:
+            - bun-install-v1-{{ checksum "bun.lock" }}
+            - bun-install-v1-
+      - run:
+          name: Install Bun
+          command: |
+            curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.14"
+            echo 'export BUN_INSTALL="$HOME/.bun"' >> "$BASH_ENV"
+            echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> "$BASH_ENV"
+      - run:
+          name: Install dependencies
+          command: bun install --frozen-lockfile
+      - save_cache:
+          name: Save Bun install cache
+          key: bun-install-v1-{{ checksum "bun.lock" }}
+          paths:
+            - ~/.bun/install/cache
+            - node_modules
+      - run:
+          name: Run CI
+          command: bun run ci
+
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - ci
