@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Pagination } from './Pagination';
 
 const meta = {
@@ -11,6 +11,7 @@ const meta = {
   },
   args: {
     activePage: 1,
+    onClick: () => undefined,
     totalPages: 3,
   },
 } satisfies Meta<typeof Pagination>;

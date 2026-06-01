@@ -38,13 +38,21 @@ describe('Pagination', () => {
   });
 
   test('handles one page', () => {
+    const onClickMock = jest.fn();
     const { container } = render(
-      <Pagination onClick={jest.fn()} totalPages={1} centered />
+      <Pagination onClick={onClickMock} totalPages={1} centered />
     );
 
     screen.getAllByText('1');
 
     const pageItems = container.querySelectorAll('.page-item');
     expect(pageItems).toHaveLength(3);
+
+    fireEvent.click(pageItems[0]);
+    fireEvent.keyPress(pageItems[0], { key: 'Enter', code: 'Enter' });
+    fireEvent.click(pageItems[2]);
+    fireEvent.keyPress(pageItems[2], { key: 'Enter', code: 'Enter' });
+
+    expect(onClickMock).not.toHaveBeenCalled();
   });
 });

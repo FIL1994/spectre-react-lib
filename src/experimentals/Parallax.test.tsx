@@ -47,7 +47,6 @@ describe('Parallax', () => {
   });
 
   test('bottomRight gets called on Enter', () => {
-    console.log('HELLO');
     const bottomRightMock = jest.fn();
     const { container } = render(<Parallax bottomRight={bottomRightMock} />);
 
@@ -74,6 +73,6 @@ describe('Parallax', () => {
       which: 13,
     });
 
-    // expect(bottomRightMock).toHaveBeenCalled();
+    expect(bottomRightMock).toHaveBeenCalled();
   });
 });
