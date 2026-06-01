@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   ci:
     docker:
-      - image: cimg/node:20.19
+      - image: cimg/node:24.16.0
     resource_class: large
     steps:
       - checkout
