@@ -31,7 +31,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "audit": "bun audit --audit-level moderate",
-    "ci": "bun run lint && bun run tsc && bun run test && bun run build && bun run build-storybook && bun run audit",
+    "ci": "bun run lint && bun run format:check && bun run tsc && bun run test && bun run build && bun run build-storybook && bun run audit",
     "release:help": "bunx release-please --help",
     "release:beta": "bunx release-please release-pr --prerelease-type beta --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN",
     "release:bootstrap": "bunx release-please bootstrap --prerelease --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN --initial-version 0.4.5 --release-type node --bump-minor-pre-major --bump-patch-for-minor-pre-major"
