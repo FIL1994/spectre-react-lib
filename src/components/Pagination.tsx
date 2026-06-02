@@ -1,4 +1,3 @@
-/* eslint no-script-url: 0 */
 import React from 'react';
 import { addClass, onEnter } from '../helpers';
 
