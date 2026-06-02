@@ -1,0 +1,12 @@
+pre-commit:
+  jobs:
+    - name: format staged files
+      run: bun run format -- {staged_files}
+      glob:
+        - '*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,md,mdx,yml,yaml,toml}'
+      stage_fixed: true
+
+    - name: lint staged source files
+      run: bun run lint -- {staged_files}
+      glob:
+        - '*.{js,jsx,ts,tsx,mjs,cjs}'
