@@ -45,18 +45,6 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'error',
       'no-plusplus': 'off',
       'react/prop-types': 'off',
-      '@typescript-eslint/no-restricted-imports': [
-        'error',
-        {
-          paths: [
-            {
-              name: 'ts-essentials',
-              message: 'Please use "import type {...} from "ts-essentials"".',
-              allowTypeImports: true,
-            },
-          ],
-        },
-      ],
     },
   }
 );
