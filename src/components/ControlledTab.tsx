@@ -1,55 +1,44 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Tab } from './Tab';
 
-import { onEnter } from '../helpers';
+export interface ControlledTabOption {
+  label: string;
+  value: string;
+  render(): React.ReactNode;
+}
 
-interface Props {
-  options: {
-    label: string;
-    value: string;
-    render(): React.ReactNode;
-  }[];
+export interface ControlledTabProps {
+  options: ControlledTabOption[];
   defaultActive?: string;
 }
 
-export class ControlledTab extends Component<Props> {
-  state = {
-    active: this.props.defaultActive || this.props.options[0]?.value,
-  };
+export function ControlledTab({ options, defaultActive }: ControlledTabProps) {
+  const [active, setActive] = useState(defaultActive || options[0]?.value);
+  const activeOption = options.find((o) => active === o.value);
 
-  renderActive = () => {
-    const activeOption = this.props.options.find(
-      (o) => this.state.active === o.value
-    );
+  return (
+    <Fragment>
+      <Tab block aria-label="Tabs" role="tablist">
+        {options.map(({ label, value }) => {
+          const isActive = active === value;
 
-    return activeOption ? activeOption.render() : <Fragment />;
-  };
-
-  render() {
-    return (
-      <Fragment>
-        <Tab block>
-          {this.props.options.map(({ label, value }) => {
-            const onClick = () => {
-              this.setState({ active: value });
-            };
-
-            return (
-              <Fragment key={value}>
-                <Tab.Heading
-                  active={this.state.active === value}
-                  tabIndex={0}
-                  onClick={onClick}
-                  onKeyPress={onEnter(onClick)}
-                >
-                  <a href="#">{label}</a>
-                </Tab.Heading>
-              </Fragment>
-            );
-          })}
-        </Tab>
-        <div style={{ marginTop: 10 }}>{this.renderActive()}</div>
-      </Fragment>
-    );
-  }
+          return (
+            <Tab.Heading key={value} active={isActive}>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(value)}
+              >
+                {label}
+              </button>
+            </Tab.Heading>
+          );
+        })}
+      </Tab>
+      <div style={{ marginTop: 10 }}>
+        {activeOption ? activeOption.render() : <Fragment />}
+      </div>
+    </Fragment>
+  );
 }

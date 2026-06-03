@@ -1,27 +1,22 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 
-interface ToastProps {
-  className?: string;
+export interface ToastProps extends React.ComponentPropsWithoutRef<'div'> {
   primary?: boolean;
   centered?: boolean;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
 }
 
 /**
  * A toast to show an alert or information.
  */
-export const Toast = ({ primary, centered, ...props }: ToastProps) => {
+export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
+  { primary, centered, ...props },
+  ref
+) {
   let className = addClass('toast', props.className);
 
-  if (primary) {
-    className = addClass(className, 'btn-primary');
-  }
+  if (primary) className = addClass(className, 'btn-primary');
+  if (centered) className = addClass(className, 'centered text-center');
 
-  if (centered) {
-    className = addClass(className, 'centered text-center');
-  }
-
-  return <div {...props} className={className} />;
-};
+  return <div {...props} ref={ref} className={className} />;
+});

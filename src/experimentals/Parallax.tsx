@@ -1,59 +1,64 @@
-import type React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass, onEnter } from '../helpers';
 
-interface ParallaxProps {
-  className?: string;
+export interface ParallaxProps extends React.ComponentPropsWithoutRef<'div'> {
   title?: string;
   topLeft?: (event: React.SyntheticEvent) => void;
   topRight?: (event: React.SyntheticEvent) => void;
   bottomLeft?: (event: React.SyntheticEvent) => void;
   bottomRight?: (event: React.SyntheticEvent) => void;
-  children?: React.ReactNode;
+}
+
+function ParallaxButton({
+  className,
+  label,
+  onClick,
+}: {
+  className: string;
+  label: string;
+  onClick?: (event: React.SyntheticEvent) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={className}
+      aria-label={label}
+      onClick={onClick}
+      onKeyDown={onClick && onEnter(onClick)}
+    />
+  );
 }
 
 /**
  * A hover parallax effect.
  */
-export const Parallax = ({
-  children,
-  title,
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-  ...props
-}: ParallaxProps) => {
+export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(function Parallax(
+  { children, title, topLeft, topRight, bottomLeft, bottomRight, ...props },
+  ref
+) {
   const className = addClass('parallax', props.className);
 
   return (
-    <div {...props} className={className}>
-      <div
+    <div {...props} ref={ref} className={className}>
+      <ParallaxButton
         className="parallax-top-left"
-        role="button"
-        tabIndex={0}
+        label="Parallax top left control"
         onClick={topLeft}
-        onKeyPress={topLeft && onEnter(topLeft)}
       />
-      <div
+      <ParallaxButton
         className="parallax-top-right"
-        role="button"
-        tabIndex={0}
+        label="Parallax top right control"
         onClick={topRight}
-        onKeyPress={topRight && onEnter(topRight)}
       />
-      <div
+      <ParallaxButton
         className="parallax-bottom-left"
-        role="button"
-        tabIndex={0}
+        label="Parallax bottom left control"
         onClick={bottomLeft}
-        onKeyPress={bottomLeft && onEnter(bottomLeft)}
       />
-      <div
+      <ParallaxButton
         className="parallax-bottom-right"
-        role="button"
-        tabIndex={0}
+        label="Parallax bottom right control"
         onClick={bottomRight}
-        onKeyPress={bottomRight && onEnter(bottomRight)}
       />
       <div className="parallax-content">
         <div className="parallax-front">
@@ -63,4 +68,4 @@ export const Parallax = ({
       </div>
     </div>
   );
-};
+});
