@@ -46,7 +46,7 @@ describe('Parallax', () => {
     expect(bottomRight).toHaveBeenCalled();
   });
 
-  test('bottomRight gets called on Enter', () => {
+  test('bottomRight relies on native button activation', () => {
     const bottomRightMock = jest.fn();
     const { container } = render(<Parallax bottomRight={bottomRightMock} />);
 
@@ -55,24 +55,16 @@ describe('Parallax', () => {
 
     fireEvent.focus(bottomRightEl);
 
-    fireEvent.keyPress(bottomRightEl, {
-      key: 'Enter',
-      keyCode: 13,
-      which: 13,
-    });
-
     fireEvent.keyDown(bottomRightEl, {
       key: 'Enter',
       keyCode: 13,
       which: 13,
     });
+    fireEvent.click(bottomRightEl);
 
-    fireEvent.keyUp(bottomRightEl, {
-      key: 'Enter',
-      keyCode: 13,
-      which: 13,
-    });
-
-    expect(bottomRightMock).toHaveBeenCalled();
+    expect(bottomRightMock).toHaveBeenCalledTimes(1);
+    expect(bottomRightEl.getAttribute('style')).toContain(
+      'background: transparent'
+    );
   });
 });
