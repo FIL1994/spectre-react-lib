@@ -10,15 +10,39 @@
 
 Spectre.css and React integration
 
-## Usage
+## Requirements
 
-Installation:
+- React and React DOM 18 or 19
+- Spectre.css 0.5.9 styles, loaded by the consuming application
+
+## Installation
 
 ```sh
-npm install spectre-react-lib
+npm install spectre-react-lib spectre.css@0.5.9
 ```
 
-Importing components:
+`spectre.css` is an explicit external stylesheet dependency rather than a package peer dependency. This allows applications to use the npm package, a custom Sass build, or a CDN without package-manager conflicts. Version 0.5.9 is the currently tested CSS contract.
+
+## Stylesheets
+
+This library does not inject global CSS. Import the layers your application uses, in this order:
+
+```js
+// Required for stable/core components
+import 'spectre.css/dist/spectre.min.css';
+
+// Optional for Spectre icons
+import 'spectre.css/dist/spectre-icons.min.css';
+
+// Required in addition to core for experimental components
+import 'spectre.css/dist/spectre-exp.min.css';
+```
+
+Applications using customized Sass or CDN styles should load the equivalent layers in the same order.
+
+## Usage
+
+Stable components are exported from the package root:
 
 ```js
 import {
@@ -32,11 +56,18 @@ import {
   Grid,
   Divider,
   Loading,
-  Parallax,
   ControlledTab,
   EmptyState,
 } from 'spectre-react-lib';
 ```
+
+Experimental components use a separate entrypoint:
+
+```js
+import { Parallax } from 'spectre-react-lib/experimental';
+```
+
+The existing root `Parallax` export remains available for backwards compatibility. The `spectre-react-lib/icons` boundary is reserved for the typed Icon component planned in the component coverage roadmap.
 
 ## Storybook Examples
 
