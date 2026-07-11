@@ -1,0 +1,8 @@
+$schema: https://json.schemastore.org/lefthook.json
+min_version: 2.1.10
+
+commit-msg:
+  jobs:
+    - name: validate commit message
+      run: bunx --no-install commitlint --edit {1}
+      fail_text: 'Commit message must follow Conventional Commits (for example, "feat: add a new component").'
