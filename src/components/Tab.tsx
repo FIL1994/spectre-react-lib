@@ -1,46 +1,35 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 
-interface Props {
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
+export interface TabProps extends React.ComponentPropsWithoutRef<'ul'> {
   block?: boolean;
 }
 
-/**
- * A tab for switching between views
- */
-export function Tab({ block, ...props }: Props) {
+export interface TabHeadingProps extends React.ComponentPropsWithoutRef<'li'> {
+  active?: boolean;
+}
+
+const TabRoot = forwardRef<HTMLUListElement, TabProps>(function Tab({ block, ...props }, ref) {
   let className = addClass('tab', props.className);
 
   if (block) {
     className = addClass(className, 'tab-block');
   }
 
-  className = addClass(className, props.className);
+  return <ul {...props} ref={ref} className={className} />;
+});
 
-  return <ul {...props} className={className} />;
-}
-
-interface TabHeadingProps {
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
-  active?: boolean;
-  tabIndex?: number;
-  onClick?: React.MouseEventHandler;
-  onKeyPress?: React.KeyboardEventHandler;
-}
-
-Tab.Heading = function TabHeading({ active, ...props }: TabHeadingProps) {
+const TabHeading = forwardRef<HTMLLIElement, TabHeadingProps>(function TabHeading(
+  { active, ...props },
+  ref
+) {
   let className = addClass('tab-item', props.className);
 
   if (active) {
     className = addClass(className, 'active');
   }
 
-  className = addClass(className, props.className);
+  return <li {...props} ref={ref} className={className} />;
+});
 
-  return <li {...props} className={className} />;
-};
+export const Tab = Object.assign(TabRoot, { Heading: TabHeading });

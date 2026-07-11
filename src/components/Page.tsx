@@ -1,19 +1,20 @@
-import type React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 
-interface Props {
-  children?: React.ReactNode;
-  className?: string;
+export interface PageProps extends React.ComponentPropsWithoutRef<'div'> {
   centered?: boolean;
 }
 
 /** A page for containing elements. */
-export const Page = ({ centered, ...props }: Props) => {
+export const Page = forwardRef<HTMLDivElement, PageProps>(function Page(
+  { centered, ...props },
+  ref
+) {
   let className = addClass('page container', props.className);
 
   if (centered) {
     className = addClass(className, 'centered text-center');
   }
 
-  return <div {...props} className={className} />;
-};
+  return <div {...props} ref={ref} className={className} />;
+});

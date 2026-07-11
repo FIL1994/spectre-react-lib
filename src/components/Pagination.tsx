@@ -1,77 +1,86 @@
-import React from 'react';
-import { addClass, onEnter } from '../helpers';
+import React, { forwardRef } from 'react';
+import { addClass } from '../helpers';
 
-const noop = () => {};
-
-interface Props {
-  className?: string;
+export interface PaginationProps extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'onClick'> {
   activePage?: number;
   centered?: boolean;
   onClick: (event: React.SyntheticEvent, activePage: number) => void;
   totalPages: number;
 }
 
-export function Pagination({ activePage = 1, totalPages, centered, onClick, ...props }: Props) {
+export const Pagination = forwardRef<HTMLUListElement, PaginationProps>(function Pagination(
+  { activePage = 1, totalPages, centered, onClick, ...props },
+  ref
+) {
   const className = addClass('pagination', props.className);
 
   const pages = Array.from({ length: Math.ceil(totalPages) });
 
   const prevEnabled = !(activePage <= 1);
   const nextEnabled = !(activePage >= totalPages);
-  const disabledTab = { tabIndex: -1 };
 
-  const onClickBack = (e: React.SyntheticEvent) => onClick(e, activePage - 1);
-  const onClickForward = (e: React.SyntheticEvent) => onClick(e, activePage + 1);
+  const onClickBack = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (prevEnabled) onClick(e, activePage - 1);
+  };
+  const onClickForward = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (nextEnabled) onClick(e, activePage + 1);
+  };
 
   return (
-    <ul style={centered ? { justifyContent: 'center' } : {}} {...props} className={className}>
-      <li
-        className={`page-item ${prevEnabled ? '' : 'disabled'}`}
-        tabIndex={0}
-        onClick={!prevEnabled ? noop : onClickBack}
-        onKeyPress={!prevEnabled ? noop : onEnter(onClickBack)}
-      >
+    <ul
+      style={centered ? { justifyContent: 'center' } : {}}
+      {...props}
+      ref={ref}
+      className={className}
+      aria-label={props['aria-label'] ?? 'Pagination'}
+    >
+      <li className={`page-item ${prevEnabled ? '' : 'disabled'}`}>
         <a
-          href="javascript:void(0);"
-          style={{ cursor: 'pointer' }}
-          {...(prevEnabled ? {} : disabledTab)}
+          href={`#page-${activePage - 1}`}
+          aria-disabled={!prevEnabled}
+          aria-label="Previous page"
+          tabIndex={prevEnabled ? undefined : -1}
+          onClick={onClickBack}
         >
           {'<'}
         </a>
       </li>
-      {pages.map((i, index) => {
-        const onPageClick = (e: React.SyntheticEvent) => onClick(e, index + 1);
+      {pages.map((_, index) => {
+        const pageNumber = index + 1;
+        const active = pageNumber === activePage;
+        const onPageClick = (e: React.SyntheticEvent) => {
+          e.preventDefault();
+          onClick(e, pageNumber);
+        };
 
         return (
-          <li
-            key={index}
-            className={`page-item ${index + 1 === activePage ? 'active' : ''}`}
-            tabIndex={0}
-            onClick={onPageClick}
-            onKeyPress={onEnter(onPageClick)}
-          >
-            <a href="javascript:void(0);" style={{ cursor: 'pointer' }}>
-              {index + 1}
+          <li key={pageNumber} className={`page-item ${active ? 'active' : ''}`}>
+            <a
+              href={`#page-${pageNumber}`}
+              aria-current={active ? 'page' : undefined}
+              aria-label={`Page ${pageNumber}`}
+              onClick={onPageClick}
+            >
+              {pageNumber}
             </a>
           </li>
         );
       })}
-      <li
-        className={`page-item ${nextEnabled ? '' : 'disabled'}`}
-        tabIndex={0}
-        onClick={!nextEnabled ? noop : onClickForward}
-        onKeyPress={!nextEnabled ? noop : onEnter(onClickForward)}
-      >
+      <li className={`page-item ${nextEnabled ? '' : 'disabled'}`}>
         <a
-          href="javascript:void(0);"
-          style={{ cursor: 'pointer' }}
-          {...(nextEnabled ? {} : disabledTab)}
+          href={`#page-${activePage + 1}`}
+          aria-disabled={!nextEnabled}
+          aria-label="Next page"
+          tabIndex={nextEnabled ? undefined : -1}
+          onClick={onClickForward}
         >
           {'>'}
         </a>
       </li>
     </ul>
   );
-}
+});
 
 export default Pagination;

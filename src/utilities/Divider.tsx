@@ -1,19 +1,22 @@
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 
-interface DividerProps {
-  className?: string;
+export interface DividerProps extends React.ComponentPropsWithoutRef<'div'> {
   size?: string | number;
 }
 
 /**
  * A divider for separating elements.
  */
-export const Divider = (props: DividerProps) => {
+export const Divider = forwardRef<HTMLDivElement, DividerProps>(function Divider(
+  { size, ...props },
+  ref
+) {
   let className = addClass('divider', props.className);
 
-  if (props.size !== undefined) {
-    className = addClass(className, `col-${props.size.toString().trim()} centered`);
+  if (size !== undefined) {
+    className = addClass(className, `col-${size.toString().trim()} centered`);
   }
 
-  return <div {...props} className={className} />;
-};
+  return <div {...props} ref={ref} className={className} />;
+});

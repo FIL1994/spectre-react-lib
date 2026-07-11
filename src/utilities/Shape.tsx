@@ -1,11 +1,8 @@
-import type React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 import type { Color } from '../utils';
 
-interface LoadingProps {
-  className?: string;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
+export interface ShapeProps extends React.ComponentPropsWithoutRef<'div'> {
   shape: 'rounded' | 'circle';
   backgroundColor?: Color;
   textColor?: Color;
@@ -14,30 +11,18 @@ interface LoadingProps {
 /**
  * Shape utilities are used for changing element shapes.
  */
-export const Shape = ({ shape, backgroundColor, textColor, ...props }: LoadingProps) => {
+export const Shape = forwardRef<HTMLDivElement, ShapeProps>(function Shape(
+  { shape, backgroundColor, textColor, ...props },
+  ref
+) {
   let className = 'centered text-center';
 
-  if (shape === 'rounded') {
-    className = addClass(className, 's-rounded');
-  }
+  if (shape === 'rounded') className = addClass(className, 's-rounded');
+  if (shape === 'circle') className = addClass(className, 's-circle');
 
-  if (shape === 'circle') {
-    className = addClass(className, 's-circle');
-  }
-
-  if (!backgroundColor) {
-    className = addClass(className, 'bg-primary');
-  } else {
-    className = addClass(className, `bg-${backgroundColor}`);
-  }
-
-  if (!textColor) {
-    className = addClass(className, 'text-light');
-  } else {
-    className = addClass(className, `text-${textColor}`);
-  }
-
+  className = addClass(className, `bg-${backgroundColor ?? 'primary'}`);
+  className = addClass(className, `text-${textColor ?? 'light'}`);
   className = addClass(className, props.className);
 
-  return <div {...props} className={className} />;
-};
+  return <div {...props} ref={ref} className={className} />;
+});

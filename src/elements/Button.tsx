@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
 
 export type Size =
@@ -27,10 +27,7 @@ export type Size =
   | '11'
   | '12';
 
-interface Props {
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
+export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   large?: boolean;
   small?: boolean;
   block?: boolean;
@@ -41,103 +38,73 @@ interface Props {
   loading?: boolean;
   centered?: boolean;
   inputGroup?: boolean;
-  disabled?: boolean;
   size?: Size;
 }
 
-export function Button({
-  small,
-  large,
-  block,
-  primary,
-  centered,
-  disabled,
-  success,
-  error,
-  loading,
-  link,
-  inputGroup,
-  size,
-  ...props
-}: Props) {
-  let className = 'btn';
-
-  const otherProps = {
-    disabled: false,
-    tabIndex: undefined,
-  } as Pick<
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
-    'disabled' | 'tabIndex'
-  >;
-
-  // allow size to be passed as a string or a number
-  if (size) {
-    className = `${className} col-${size.toString().trim()}`;
-  }
-
-  if (large) {
-    className = addClass(className, 'btn-lg');
-  } else if (small) {
-    className = addClass(className, 'btn-sm');
-  }
-
-  if (block) {
-    className = addClass(className, 'btn-block');
-  }
-
-  if (primary) {
-    className = addClass(className, 'btn-primary');
-  }
-
-  if (success) {
-    className = addClass(className, 'btn-success');
-  }
-
-  if (error) {
-    className = addClass(className, 'btn-error');
-  }
-
-  if (link) {
-    className = addClass(className, 'btn-link');
-  }
-
-  if (loading) {
-    className = addClass(className, 'loading');
-  }
-
-  if (centered) {
-    className = addClass(className, 'centered text-center');
-  }
-
-  if (inputGroup) {
-    className = addClass(className, 'input-group-btn');
-  }
-
-  if (disabled) {
-    otherProps.disabled = true;
-    otherProps.tabIndex = -1;
-    className = addClass(className, 'disabled');
-  }
-
-  className = addClass(className, props.className);
-
-  return <button type="button" {...props} {...otherProps} className={className} />;
-}
-
-interface ButtonGroupProps {
-  children?: React.ReactNode;
-  className?: string;
+export interface ButtonGroupProps extends React.ComponentPropsWithoutRef<'div'> {
   block?: boolean;
 }
 
-Button.Group = function ButtonGroup({ block, ...props }: ButtonGroupProps) {
-  let className = 'btn-group';
+const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    small,
+    large,
+    block,
+    primary,
+    centered,
+    disabled,
+    success,
+    error,
+    loading,
+    link,
+    inputGroup,
+    size,
+    type = 'button',
+    ...props
+  },
+  ref
+) {
+  let className = 'btn';
+  const tabIndex = disabled ? -1 : props.tabIndex;
 
-  if (block) {
-    className = addClass(className, 'btn-group-block');
-  }
+  if (size) className = `${className} col-${size.toString().trim()}`;
+  if (large) className = addClass(className, 'btn-lg');
+  else if (small) className = addClass(className, 'btn-sm');
+  if (block) className = addClass(className, 'btn-block');
+  if (primary) className = addClass(className, 'btn-primary');
+  if (success) className = addClass(className, 'btn-success');
+  if (error) className = addClass(className, 'btn-error');
+  if (link) className = addClass(className, 'btn-link');
+  if (loading) className = addClass(className, 'loading');
+  if (centered) className = addClass(className, 'centered text-center');
+  if (inputGroup) className = addClass(className, 'input-group-btn');
+  if (disabled) className = addClass(className, 'disabled');
 
   className = addClass(className, props.className);
 
-  return <div {...props} className={className} />;
-};
+  return (
+    <button
+      {...props}
+      ref={ref}
+      type={type}
+      disabled={disabled}
+      tabIndex={tabIndex}
+      className={className}
+    />
+  );
+});
+
+const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(function ButtonGroup(
+  { block, ...props },
+  ref
+) {
+  let className = 'btn-group';
+
+  if (block) className = addClass(className, 'btn-group-block');
+
+  className = addClass(className, props.className);
+
+  return <div {...props} ref={ref} className={className} />;
+});
+
+export const Button = Object.assign(ButtonRoot, { Group: ButtonGroup });

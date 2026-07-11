@@ -48,4 +48,15 @@ describe('Pagination', () => {
 
     expect(onClickMock).not.toHaveBeenCalled();
   });
+
+  test('uses Spectre-compatible links for active and disabled states', () => {
+    const { container } = render(<Pagination onClick={jest.fn()} totalPages={3} activePage={1} />);
+
+    const activeItem = container.querySelector('.page-item.active');
+    const previousLink = screen.getByLabelText('Previous page');
+
+    expect(activeItem?.querySelector('a')).not.toBeNull();
+    expect(previousLink.getAttribute('aria-disabled')).toBe('true');
+    expect(previousLink.getAttribute('tabindex')).toBe('-1');
+  });
 });
