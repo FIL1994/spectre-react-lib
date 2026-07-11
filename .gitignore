@@ -32,3 +32,10 @@ yarn-error.log*
 .env.production.local
 
 storybook-static
+
+# other
+spectre/
+.pi
+.pi-subagents
+.codex
+
