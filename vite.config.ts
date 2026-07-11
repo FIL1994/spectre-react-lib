@@ -4,7 +4,7 @@ export default defineConfig({
   pack: {
     entry: ['src/index.ts'],
     outDir: 'dist',
-    target: 'es2018',
+    target: 'es2021',
     format: ['esm', 'cjs'],
     platform: 'neutral',
     fixedExtension: false,
