@@ -63,4 +63,4 @@ Follow-up improvements to modernize this library after the Bun/dev-stack upgrade
 
 ## Recommended next PR
 
-Start with accessibility and component typings. It is user-visible, low risk, and addresses the remaining React warnings and older interaction patterns.
+Phase 1 completed accessibility, typing, ref, and native-prop work for the existing primitives, layout, and utilities. Continue with Phase 2 of the component coverage plan: repair EmptyState, Pagination, Panel, Tab/ControlledTab, Toast, and Parallax while preserving their current APIs.

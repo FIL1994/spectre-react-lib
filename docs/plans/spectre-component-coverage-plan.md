@@ -2,7 +2,7 @@
 
 | Field                    | Value               |
 | ------------------------ | ------------------- |
-| Status                   | Proposed            |
+| Status                   | In progress         |
 | Last updated             | 2026-07-11          |
 | React library            | `spectre-react-lib` |
 | CSS compatibility target | `spectre.css@0.5.9` |
@@ -90,32 +90,28 @@ Typography, Asian-language text rules, animations, colors, cursors, display, pos
 
 ### 6.1 Existing public families
 
-| Family        | Current file                       | Current status           | Required work                                                                                                                                                                         |
-| ------------- | ---------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Button        | `src/elements/Button.tsx`          | Partial                  | Add canonical action, clear, and active states; introduce an exclusive `variant`; separate grid width from control size; retain legacy booleans and numeric `size` with deprecations. |
-| Table         | `src/elements/Table.tsx`           | Partial                  | Add scroll wrapper, caption/cell compounds, active rows, refs/types for all parts, and keyboard-safe sortable-heading examples.                                                       |
-| Grid          | `src/layout/Grid.tsx`              | Partial                  | Make width optional; support `auto`, `xs`–`xl` widths, one-line rows, and auto margins; stop importing its width type from Button.                                                    |
-| Page          | `src/components/Page.tsx`          | Noncanonical helper      | Add canonical `Container`; preserve `Page` as a deprecated compatibility alias/helper because `.page` is not a Spectre core class.                                                    |
-| EmptyState    | `src/components/EmptyState.tsx`    | Partial                  | Add subtitle and canonical compound parts; stop emitting empty sections; preserve convenience props and children-as-actions behavior.                                                 |
-| Pagination    | `src/components/Pagination.tsx`    | Partial                  | Add large-range windowing and ellipses, real/configurable links, current/disabled semantics, preferred callback naming, and canonical previous/next composition.                      |
-| Panel         | `src/components/Panel.tsx`         | Partial                  | Add Header, Nav, Body, Footer, Title, and Subtitle compounds; render valid falsy content; retain convenience props.                                                                   |
-| Tab           | `src/components/Tab.tsx`           | Partial                  | Add action support and preferred `Tab.Item` alias while preserving `Tab.Heading`.                                                                                                     |
-| ControlledTab | `src/components/ControlledTab.tsx` | Partial                  | Add true controlled mode, disabled options, orientation, activation mode, stable IDs, and preferred callback names. Resolve React 17 versus `useId`.                                  |
-| Toast         | `src/components/Toast.tsx`         | Buggy/partial            | Fix `primary` from `btn-primary` to `toast-primary`; add success, warning, and error; add optional dismiss and live-region behavior.                                                  |
-| Divider       | `src/utilities/Divider.tsx`        | Partial/noncanonical API | Add vertical orientation and content; retain grid-based `size` only as a deprecated compatibility prop.                                                                               |
-| Loading       | `src/utilities/Loading.tsx`        | Partial                  | Define standalone status/name behavior and distinguish it from decorative loading state inside Button.                                                                                |
-| Shape         | `src/utilities/Shape.tsx`          | Over-opinionated         | Stop forcing centering/default colors in the preferred API; split valid text and background color types because `bg-light` does not exist. Preserve old defaults until `1.0`.         |
-| Parallax      | `src/experimentals/Parallax.tsx`   | Partial experimental     | Add composable Front/Back/Content parts; avoid four focusable controls unless callbacks exist; document experimental CSS.                                                             |
+| Family         | Current file                                          | Current status       | Required work                                                                                                                                                    |
+| -------------- | ----------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button         | `src/elements/Button.tsx`                             | Covered (Phase 1)    | Canonical variants, action/clear/active states, control sizes, refs/native props, tests, and compatibility deprecations are complete.                            |
+| Table          | `src/elements/Table.tsx`                              | Covered (Phase 1)    | Scrollable tables, semantic compounds, active rows, refs/native props, and keyboard-safe legacy sortable headings are complete.                                  |
+| Grid           | `src/layout/Grid.tsx`                                 | Covered (Phase 1)    | Equal/fixed/auto/responsive widths, one-line/gapless rows, auto margins, refs/native props, tests, and canonical stories are complete.                           |
+| Page/Container | `src/components/Page.tsx`, `src/layout/Container.tsx` | Covered (Phase 1)    | Canonical Container is available; Page remains as a deprecated, tested compatibility helper through `1.0`.                                                       |
+| EmptyState     | `src/components/EmptyState.tsx`                       | Partial              | Add subtitle and canonical compound parts; stop emitting empty sections; preserve convenience props and children-as-actions behavior.                            |
+| Pagination     | `src/components/Pagination.tsx`                       | Partial              | Add large-range windowing and ellipses, real/configurable links, current/disabled semantics, preferred callback naming, and canonical previous/next composition. |
+| Panel          | `src/components/Panel.tsx`                            | Partial              | Add Header, Nav, Body, Footer, Title, and Subtitle compounds; render valid falsy content; retain convenience props.                                              |
+| Tab            | `src/components/Tab.tsx`                              | Partial              | Add action support and preferred `Tab.Item` alias while preserving `Tab.Heading`.                                                                                |
+| ControlledTab  | `src/components/ControlledTab.tsx`                    | Partial              | Add true controlled mode, disabled options, orientation, activation mode, stable IDs, and preferred callback names.                                              |
+| Toast          | `src/components/Toast.tsx`                            | Buggy/partial        | Fix `primary` from `btn-primary` to `toast-primary`; add success, warning, and error; add optional dismiss and live-region behavior.                             |
+| Divider        | `src/utilities/Divider.tsx`                           | Covered (Phase 1)    | Horizontal/vertical orientation, content, separator semantics, refs/native props, and deprecated grid sizing are complete.                                       |
+| Loading        | `src/utilities/Loading.tsx`                           | Covered (Phase 1)    | Standalone status/name semantics and Button's distinct loading/busy behavior are tested and documented.                                                          |
+| Shape          | `src/utilities/Shape.tsx`                             | Covered (Phase 1)    | Canonical opt-in behavior, valid foreground/background types, refs/native props, and pre-1.0 compatibility defaults are tested and documented.                   |
+| Parallax       | `src/experimentals/Parallax.tsx`                      | Partial experimental | Add composable Front/Back/Content parts; avoid four focusable controls unless callbacks exist; document experimental CSS.                                        |
 
 ### 6.2 Cross-cutting gaps
 
-- `README.md` does not explain that consumers must load Spectre CSS.
-- `.storybook/preview.ts` loads only core CSS, so icon and experimental stories cannot be validated correctly.
-- `package.json` advertises React 17 while `ControlledTab` calls `useId`, which requires React 18 or later.
-- The package has only a root export; icons and future experimentals need explicit boundaries.
-- Stories are missing for Table, Grid, Page, Tab, ControlledTab, and Parallax.
-- Shape has no unit test.
+- Stories are missing for Tab, ControlledTab, and Parallax.
 - Most tests assert class presence only; ref behavior, prop passthrough, controlled state, keyboard behavior, SSR, and package imports have little coverage.
+- Browser and automated accessibility test scaffolding remains an open foundation task.
 - Happy DOM cannot validate CSS visibility, focus overlays, native control styling, pointer geometry, or responsive layout.
 
 ### 6.3 Missing stable core families
@@ -126,7 +122,6 @@ Typography, Asian-language text rules, animations, colors, cursors, display, pos
 - Label
 - Code
 - Media
-- Container
 - Hero
 - Navbar
 
@@ -514,6 +509,8 @@ Each phase should have one primary concern, pass CI independently, and be releas
 ### Phase 1 — Existing primitives, layout, and utilities
 
 **Suggested branch:** `fix/core-primitive-parity`
+
+**Status:** Complete
 
 **Scope**
 
@@ -1025,13 +1022,13 @@ These decisions must be recorded in Phase 0 before implementation spreads their 
 
 ### Existing parity
 
-- [ ] Button — Phase 1
-- [ ] Table — Phase 1
-- [ ] Grid — Phase 1
-- [ ] Page/Container — Phase 1
-- [ ] Divider — Phase 1
-- [ ] Loading — Phase 1
-- [ ] Shape — Phase 1
+- [x] Button — Phase 1
+- [x] Table — Phase 1
+- [x] Grid — Phase 1
+- [x] Page/Container — Phase 1
+- [x] Divider — Phase 1
+- [x] Loading — Phase 1
+- [x] Shape — Phase 1
 - [ ] EmptyState — Phase 2
 - [ ] Pagination — Phase 2
 - [ ] Panel — Phase 2

@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["./imports.ts"],
+  "include": ["./imports.ts", "./phase1-legacy.tsx", "./phase1-types.tsx"],
   "compilerOptions": {
     "noEmit": true
   }

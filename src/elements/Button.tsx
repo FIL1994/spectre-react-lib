@@ -27,17 +27,35 @@ export type Size =
   | '11'
   | '12';
 
+export type ButtonVariant = 'default' | 'primary' | 'success' | 'error' | 'link';
+
+export type ControlSize = 'sm' | 'md' | 'lg';
+
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
-  large?: boolean;
-  small?: boolean;
+  variant?: ButtonVariant;
+  controlSize?: ControlSize;
+  action?: boolean;
+  clear?: boolean;
+  active?: boolean;
   block?: boolean;
-  primary?: boolean;
-  success?: boolean;
-  error?: boolean;
-  link?: boolean;
   loading?: boolean;
+  /** @deprecated Use `controlSize="lg"` instead. */
+  large?: boolean;
+  /** @deprecated Use `controlSize="sm"` instead. */
+  small?: boolean;
+  /** @deprecated Use `variant="primary"` instead. */
+  primary?: boolean;
+  /** @deprecated Use `variant="success"` instead. */
+  success?: boolean;
+  /** @deprecated Use `variant="error"` instead. */
+  error?: boolean;
+  /** @deprecated Use `variant="link"` instead. */
+  link?: boolean;
+  /** @deprecated Use layout composition or `className` instead. */
   centered?: boolean;
+  /** @deprecated Use form input-group composition or `className` instead. */
   inputGroup?: boolean;
+  /** @deprecated Grid width is not a button concern. Use `Grid.Column` for layout. */
   size?: Size;
 }
 
@@ -47,6 +65,11 @@ export interface ButtonGroupProps extends React.ComponentPropsWithoutRef<'div'> 
 
 const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
+    variant,
+    controlSize,
+    action,
+    clear,
+    active,
     small,
     large,
     block,
@@ -60,6 +83,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     inputGroup,
     size,
     type = 'button',
+    'aria-busy': ariaBusy,
     ...props
   },
   ref
@@ -68,13 +92,25 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   const tabIndex = disabled ? -1 : props.tabIndex;
 
   if (size) className = `${className} col-${size.toString().trim()}`;
-  if (large) className = addClass(className, 'btn-lg');
-  else if (small) className = addClass(className, 'btn-sm');
+  if (controlSize === 'lg' || (controlSize === undefined && large)) {
+    className = addClass(className, 'btn-lg');
+  } else if (controlSize === 'sm' || (controlSize === undefined && small)) {
+    className = addClass(className, 'btn-sm');
+  }
   if (block) className = addClass(className, 'btn-block');
-  if (primary) className = addClass(className, 'btn-primary');
-  if (success) className = addClass(className, 'btn-success');
-  if (error) className = addClass(className, 'btn-error');
-  if (link) className = addClass(className, 'btn-link');
+
+  if (variant === undefined) {
+    if (primary) className = addClass(className, 'btn-primary');
+    if (success) className = addClass(className, 'btn-success');
+    if (error) className = addClass(className, 'btn-error');
+    if (link) className = addClass(className, 'btn-link');
+  } else if (variant !== 'default') {
+    className = addClass(className, `btn-${variant}`);
+  }
+
+  if (action) className = addClass(className, 'btn-action');
+  if (clear) className = addClass(className, 'btn-clear');
+  if (active) className = addClass(className, 'active');
   if (loading) className = addClass(className, 'loading');
   if (centered) className = addClass(className, 'centered text-center');
   if (inputGroup) className = addClass(className, 'input-group-btn');
@@ -89,6 +125,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       type={type}
       disabled={disabled}
       tabIndex={tabIndex}
+      aria-busy={ariaBusy ?? (loading ? true : undefined)}
       className={className}
     />
   );

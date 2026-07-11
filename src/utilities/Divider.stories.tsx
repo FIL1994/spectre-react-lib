@@ -4,51 +4,37 @@ import { Divider } from './Divider';
 const meta = {
   title: 'Utilities/Divider',
   component: Divider,
-  parameters: {},
   tags: ['autodocs'],
-  argTypes: {},
-  args: {},
 } satisfies Meta<typeof Divider>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
-  args: {},
-  render(args) {
-    return (
-      <div
-        style={{
-          padding: 12,
-          borderRadius: 4,
-          background: 'grey',
-          color: 'white',
-        }}
-      >
-        <Divider {...args} />
-      </div>
-    );
+export const Horizontal: Story = {};
+
+export const WithContent: Story = {
+  args: {
+    content: 'or',
   },
 };
 
-export const Sizes: Story = {
-  render() {
-    return (
-      <div
-        style={{
-          padding: 12,
-          borderRadius: 4,
-          background: 'grey',
-          color: 'white',
-        }}
-      >
-        12
-        <Divider size={12} />
-        6
-        <Divider size={6} />
-        3
-        <Divider size={3} />
+export const Vertical: Story = {
+  args: {
+    orientation: 'vertical',
+    content: 'or',
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ height: 160, display: 'flex', justifyContent: 'center' }}>
+        <Story />
       </div>
-    );
+    ),
+  ],
+};
+
+/** @deprecated Use Grid.Column for layout sizing. */
+export const LegacySize: Story = {
+  args: {
+    size: 6,
   },
 };

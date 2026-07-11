@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ControlledTab } from 'spectre-react-lib';
+import { Container, ControlledTab, Shape, Table } from 'spectre-react-lib';
 import * as icons from 'spectre-react-lib/icons';
 import { Parallax } from 'spectre-react-lib/experimental';
 
@@ -48,3 +48,30 @@ const parallaxHtml = renderToString(
 );
 
 assert.match(parallaxHtml, /class="parallax"/, 'the experimental entrypoint should server render');
+
+const table = React.createElement(
+  Table,
+  { scrollable: true },
+  React.createElement(Table.Caption, null, 'Phase 1 fixture'),
+  React.createElement(
+    Table.Body,
+    null,
+    React.createElement(Table.Row, { active: true }, React.createElement(Table.Cell, null, 'Cell'))
+  )
+);
+const phaseOneHtml = renderToString(
+  React.createElement(
+    Container,
+    { size: 'md' },
+    table,
+    React.createElement(Shape, {
+      shape: 'circle',
+      legacyDefaults: false,
+      'aria-label': 'Shape',
+    })
+  )
+);
+
+assert.match(phaseOneHtml, /class="container grid-md"/, 'Container should server render');
+assert.match(phaseOneHtml, /table-scroll/, 'Table compounds should server render');
+assert.match(phaseOneHtml, /s-circle/, 'canonical Shape should server render');
