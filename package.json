@@ -27,11 +27,12 @@
     "build-storybook": "storybook build",
     "tsc": "tsc --noEmit",
     "test": "bun test --coverage",
+    "test:package": "bun run build && node tests/package/esm.mjs && node tests/package/commonjs.cjs && node tests/package/react-compatibility.mjs && tsc --project tests/package/tsconfig.json",
     "test:watch": "bun test --watch",
-    "lint": "vp lint --config .oxlintrc.json src .storybook --deny-warnings",
+    "lint": "vp lint --config .oxlintrc.json src .storybook tests --deny-warnings",
     "audit": "bun audit --audit-level moderate",
     "prepare": "lefthook install",
-    "ci": "bun run format:check && bun run lint && bun run tsc && bun run test && bun run build && bun run build-storybook && bun run audit",
+    "ci": "bun run format:check && bun run lint && bun run tsc && bun run test && bun run test:package && bun run build-storybook && bun run audit",
     "release:help": "bunx release-please --help",
     "release:beta": "bunx release-please release-pr --prerelease-type beta --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN",
     "release:bootstrap": "bunx release-please bootstrap --prerelease --repo-url FIL1994/spectre-react-lib --token $GITHUB_TOKEN --initial-version 0.4.5 --release-type node --bump-minor-pre-major --bump-patch-for-minor-pre-major"
@@ -45,6 +46,18 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.js",
+      "require": "./dist/icons.cjs",
+      "default": "./dist/icons.js"
+    },
+    "./experimental": {
+      "types": "./dist/experimental.d.ts",
+      "import": "./dist/experimental.js",
+      "require": "./dist/experimental.cjs",
+      "default": "./dist/experimental.js"
     }
   },
   "sideEffects": false,
@@ -71,7 +84,7 @@
     "lefthook": "^2.1.10",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "spectre.css": "^0.5.9",
+    "spectre.css": "0.5.9",
     "storybook": "^10.5.0",
     "tiny-invariant": "^1.3.3",
     "ts-essentials": "^10.2.1",
@@ -80,8 +93,8 @@
     "vite-plus": "^0.2.4"
   },
   "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "packageManager": "bun@1.3.14",
   "publishConfig": {

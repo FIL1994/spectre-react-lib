@@ -1002,19 +1002,24 @@ Experimental APIs remain semver-governed, but their docs should state that they 
 | Upstream Spectre is inactive.                                              | Pin v0.5.9 and require an explicit compatibility review for any fork/version change.                      |
 | The ignored clone leaks into published artifacts.                          | Test tarball contents and keep package `files` restricted to `dist`.                                      |
 
-## 17. Open decisions
+## 17. Decisions
 
-These decisions must be recorded in the Phase 0 PR before implementation spreads their consequences:
+### 17.1 Closed in Phase 0
 
-1. **React support:** Drop React 17 as recommended, or implement and fixture-test an SSR-safe fallback ID strategy.
-2. **CSS package relationship:** Exact documented external dependency only, or optional exact peer dependency.
-3. **Browser/a11y tooling:** Exact Playwright/axe/Storybook integration and CI cost.
-4. **Polymorphic scope:** Final list of wrappers allowed to use `as`.
-5. **Modal implementation:** Internal implementation versus a small headless dependency. Any dependency must be justified by bundle size, peer compatibility, SSR, and API stability.
-6. **Calendar naming/scope:** `Calendar` as a presentational shell versus deferring the name until it is a complete date grid.
-7. **Bar.Slider range API:** One component with one/two values versus separate single/range roots.
-8. **Development-time limit handling:** Warning versus throwing for compiled Filter/Carousel/Viewer360 limits.
-9. **Stable individual subpaths:** Add after category exports, or defer until `1.0`.
+1. **React support:** Support React and React DOM 18/19. React 17 is removed from the peer range because the existing `ControlledTab` contract uses React's hydration-safe `useId`.
+2. **CSS package relationship:** Pin `spectre.css` 0.5.9 as an exact development dependency and document it as an exact external consumer dependency. Do not add it as a peer dependency, so custom Sass and CDN consumers do not encounter package-manager conflicts.
+
+### 17.2 Open decisions
+
+These decisions must be recorded in Phase 0 before implementation spreads their consequences:
+
+1. **Browser/a11y tooling:** Exact Playwright/axe/Storybook integration and CI cost.
+2. **Polymorphic scope:** Final list of wrappers allowed to use `as`.
+3. **Modal implementation:** Internal implementation versus a small headless dependency. Any dependency must be justified by bundle size, peer compatibility, SSR, and API stability.
+4. **Calendar naming/scope:** `Calendar` as a presentational shell versus deferring the name until it is a complete date grid.
+5. **Bar.Slider range API:** One component with one/two values versus separate single/range roots.
+6. **Development-time limit handling:** Warning versus throwing for compiled Filter/Carousel/Viewer360 limits.
+7. **Stable individual subpaths:** Add after category exports, or defer until `1.0`.
 
 ## 18. Coverage checklist by phase
 
