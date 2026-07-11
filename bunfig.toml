@@ -1,2 +1,9 @@
+[run]
+# Prefer Bun when package scripts invoke node-based tooling.
+bun = true
+
+[install]
+saveTextLockfile = false
+
 [test]
 preload = "./src/test/happydom.ts"
