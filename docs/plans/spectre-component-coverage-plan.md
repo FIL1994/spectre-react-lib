@@ -90,27 +90,25 @@ Typography, Asian-language text rules, animations, colors, cursors, display, pos
 
 ### 6.1 Existing public families
 
-| Family         | Current file                                          | Current status       | Required work                                                                                                                                                    |
-| -------------- | ----------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Button         | `src/elements/Button.tsx`                             | Covered (Phase 1)    | Canonical variants, action/clear/active states, control sizes, refs/native props, tests, and compatibility deprecations are complete.                            |
-| Table          | `src/elements/Table.tsx`                              | Covered (Phase 1)    | Scrollable tables, semantic compounds, active rows, refs/native props, and keyboard-safe legacy sortable headings are complete.                                  |
-| Grid           | `src/layout/Grid.tsx`                                 | Covered (Phase 1)    | Equal/fixed/auto/responsive widths, one-line/gapless rows, auto margins, refs/native props, tests, and canonical stories are complete.                           |
-| Page/Container | `src/components/Page.tsx`, `src/layout/Container.tsx` | Covered (Phase 1)    | Canonical Container is available; Page remains as a deprecated, tested compatibility helper through `1.0`.                                                       |
-| EmptyState     | `src/components/EmptyState.tsx`                       | Partial              | Add subtitle and canonical compound parts; stop emitting empty sections; preserve convenience props and children-as-actions behavior.                            |
-| Pagination     | `src/components/Pagination.tsx`                       | Partial              | Add large-range windowing and ellipses, real/configurable links, current/disabled semantics, preferred callback naming, and canonical previous/next composition. |
-| Panel          | `src/components/Panel.tsx`                            | Partial              | Add Header, Nav, Body, Footer, Title, and Subtitle compounds; render valid falsy content; retain convenience props.                                              |
-| Tab            | `src/components/Tab.tsx`                              | Partial              | Add action support and preferred `Tab.Item` alias while preserving `Tab.Heading`.                                                                                |
-| ControlledTab  | `src/components/ControlledTab.tsx`                    | Partial              | Add true controlled mode, disabled options, orientation, activation mode, stable IDs, and preferred callback names.                                              |
-| Toast          | `src/components/Toast.tsx`                            | Buggy/partial        | Fix `primary` from `btn-primary` to `toast-primary`; add success, warning, and error; add optional dismiss and live-region behavior.                             |
-| Divider        | `src/utilities/Divider.tsx`                           | Covered (Phase 1)    | Horizontal/vertical orientation, content, separator semantics, refs/native props, and deprecated grid sizing are complete.                                       |
-| Loading        | `src/utilities/Loading.tsx`                           | Covered (Phase 1)    | Standalone status/name semantics and Button's distinct loading/busy behavior are tested and documented.                                                          |
-| Shape          | `src/utilities/Shape.tsx`                             | Covered (Phase 1)    | Canonical opt-in behavior, valid foreground/background types, refs/native props, and pre-1.0 compatibility defaults are tested and documented.                   |
-| Parallax       | `src/experimentals/Parallax.tsx`                      | Partial experimental | Add composable Front/Back/Content parts; avoid four focusable controls unless callbacks exist; document experimental CSS.                                        |
+| Family         | Current file                                          | Current status    | Required work                                                                                                                                                |
+| -------------- | ----------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Button         | `src/elements/Button.tsx`                             | Covered (Phase 1) | Canonical variants, action/clear/active states, control sizes, refs/native props, tests, and compatibility deprecations are complete.                        |
+| Table          | `src/elements/Table.tsx`                              | Covered (Phase 1) | Scrollable tables, semantic compounds, active rows, refs/native props, and keyboard-safe legacy sortable headings are complete.                              |
+| Grid           | `src/layout/Grid.tsx`                                 | Covered (Phase 1) | Equal/fixed/auto/responsive widths, one-line/gapless rows, auto margins, refs/native props, tests, and canonical stories are complete.                       |
+| Page/Container | `src/components/Page.tsx`, `src/layout/Container.tsx` | Covered (Phase 1) | Canonical Container is available; Page remains as a deprecated, tested compatibility helper through `1.0`.                                                   |
+| EmptyState     | `src/components/EmptyState.tsx`                       | Covered (Phase 2) | Canonical compounds, convenience slots, absent-section handling, refs/native props, tests, and stories are complete.                                         |
+| Pagination     | `src/components/Pagination.tsx`                       | Covered (Phase 2) | Bounded windowing, ellipses, real links, callbacks, semantics, canonical composition, refs/native props, tests, and stories are complete.                    |
+| Panel          | `src/components/Panel.tsx`                            | Covered (Phase 2) | All canonical sections, compatibility rendering, falsy content, refs/native props, tests, and stories are complete.                                          |
+| Tab            | `src/components/Tab.tsx`                              | Covered (Phase 2) | Action items, the preferred `Tab.Item` API, the deprecated Heading alias, refs/native props, tests, and stories are complete.                                |
+| ControlledTab  | `src/components/ControlledTab.tsx`                    | Covered (Phase 2) | Controlled state, disabled options, orientation, activation modes, stable IDs, keyboard behavior, refs/native props, tests, and stories are complete.        |
+| Toast          | `src/components/Toast.tsx`                            | Covered (Phase 2) | Correct exclusive variants, dismiss behavior, opt-in live regions, compatibility props, refs/native props, tests, and stories are complete.                  |
+| Divider        | `src/utilities/Divider.tsx`                           | Covered (Phase 1) | Horizontal/vertical orientation, content, separator semantics, refs/native props, and deprecated grid sizing are complete.                                   |
+| Loading        | `src/utilities/Loading.tsx`                           | Covered (Phase 1) | Standalone status/name semantics and Button's distinct loading/busy behavior are tested and documented.                                                      |
+| Shape          | `src/utilities/Shape.tsx`                             | Covered (Phase 1) | Canonical opt-in behavior, valid foreground/background types, refs/native props, and pre-1.0 compatibility defaults are tested and documented.               |
+| Parallax       | `src/experimentals/Parallax.tsx`                      | Covered (Phase 2) | Composable layers, callback-only controls, CSS-sensitive structure, refs/native props, tests, experimental story, and stylesheet documentation are complete. |
 
 ### 6.2 Cross-cutting gaps
 
-- Stories are missing for Tab, ControlledTab, and Parallax.
-- Most tests assert class presence only; ref behavior, prop passthrough, controlled state, keyboard behavior, SSR, and package imports have little coverage.
 - Browser and automated accessibility test scaffolding remains an open foundation task.
 - Happy DOM cannot validate CSS visibility, focus overlays, native control styling, pointer geometry, or responsive layout.
 
@@ -145,7 +143,7 @@ Typography and Asian text are global styles rather than component candidates.
 - Tile
 - Tooltip
 
-Existing EmptyState, Pagination, Panel, Tab, and Toast need parity work listed above.
+Existing stable families are covered through Phase 2.
 
 #### Optional icons
 
@@ -165,7 +163,7 @@ Existing EmptyState, Pagination, Panel, Tab, and Toast need parity work listed a
 - Timeline
 - Viewer360
 
-Parallax exists but needs repair.
+Parallax is covered through its Phase 2 repair and remains available from the preferred experimental subpath.
 
 ## 7. Public API and implementation conventions
 
@@ -541,6 +539,8 @@ Each phase should have one primary concern, pass CI independently, and be releas
 ### Phase 2 — Existing component parity
 
 **Suggested branch:** `fix/core-component-parity`
+
+**Status:** Complete
 
 **Scope**
 
@@ -1029,12 +1029,12 @@ These decisions must be recorded in Phase 0 before implementation spreads their 
 - [x] Divider — Phase 1
 - [x] Loading — Phase 1
 - [x] Shape — Phase 1
-- [ ] EmptyState — Phase 2
-- [ ] Pagination — Phase 2
-- [ ] Panel — Phase 2
-- [ ] Tab/ControlledTab — Phase 2
-- [ ] Toast — Phase 2
-- [ ] Parallax — Phase 2
+- [x] EmptyState — Phase 2
+- [x] Pagination — Phase 2
+- [x] Panel — Phase 2
+- [x] Tab/ControlledTab — Phase 2
+- [x] Toast — Phase 2
+- [x] Parallax — Phase 2
 
 ### Stable core additions
 

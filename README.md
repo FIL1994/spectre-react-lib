@@ -107,12 +107,44 @@ Tables expose semantic compound parts:
 </Table>
 ```
 
-See [`docs/migration-guide.md`](docs/migration-guide.md) for compatibility APIs and Phase 1 deprecations.
+### Component parity examples
+
+Controlled tabs support controlled or uncontrolled state, disabled options, orientation, and manual activation:
+
+```tsx
+<ControlledTab
+  options={tabs}
+  value={activeTab}
+  onValueChange={setActiveTab}
+  activationMode="manual"
+/>
+```
+
+Toasts use exclusive Spectre variants and opt-in live-region behavior:
+
+```tsx
+<Toast variant="success" liveRegion="polite" onDismiss={dismissToast}>
+  Changes saved.
+</Toast>
+```
+
+See [`docs/migration-guide.md`](docs/migration-guide.md) for compatibility APIs and deprecations.
 
 Experimental components use a separate entrypoint:
 
 ```js
 import { Parallax } from 'spectre-react-lib/experimental';
+```
+
+Parallax supports canonical compound layers. Corner overlays enter the tab order only when their matching callback is supplied:
+
+```tsx
+<Parallax>
+  <Parallax.Content>
+    <Parallax.Front>Foreground</Parallax.Front>
+    <Parallax.Back>Background</Parallax.Back>
+  </Parallax.Content>
+</Parallax>
 ```
 
 The existing root `Parallax` export remains available for backwards compatibility. The `spectre-react-lib/icons` boundary is reserved for the typed Icon component planned in the component coverage roadmap.

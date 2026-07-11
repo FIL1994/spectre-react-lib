@@ -1,14 +1,48 @@
 export {
   ControlledTab,
+  type ControlledTabActivationMode,
   type ControlledTabOption,
+  type ControlledTabOrientation,
+  type ControlledTabPanelProps,
   type ControlledTabProps,
 } from './components/ControlledTab';
-export { EmptyState, type EmptyStateProps } from './components/EmptyState';
+export {
+  EmptyState,
+  type EmptyStateActionProps,
+  type EmptyStateIconProps,
+  type EmptyStateProps,
+  type EmptyStateSubtitleProps,
+  type EmptyStateTitleProps,
+} from './components/EmptyState';
 export { Page, type PageProps } from './components/Page';
-export { Pagination, type PaginationProps } from './components/Pagination';
-export { Panel, type PanelProps } from './components/Panel';
-export { Tab, type TabHeadingProps, type TabProps } from './components/Tab';
-export { Toast, type ToastProps } from './components/Toast';
+export {
+  Pagination,
+  type PaginationBaseProps,
+  type PaginationComponentProps,
+  type PaginationCompositionProps,
+  type PaginationNextProps,
+  type PaginationPreviousProps,
+  type PaginationProps,
+  type PaginationSubtitleProps,
+  type PaginationTitleProps,
+} from './components/Pagination';
+export {
+  Panel,
+  type PanelBodyProps,
+  type PanelFooterProps,
+  type PanelHeaderProps,
+  type PanelNavProps,
+  type PanelProps,
+  type PanelSubtitleProps,
+  type PanelTitleProps,
+} from './components/Panel';
+export { Tab, type TabHeadingProps, type TabItemProps, type TabProps } from './components/Tab';
+export {
+  Toast,
+  type ToastLiveRegion,
+  type ToastProps,
+  type ToastVariant,
+} from './components/Toast';
 export {
   Button,
   type ButtonGroupProps,
@@ -27,7 +61,15 @@ export {
   type TableProps,
   type TableRowProps,
 } from './elements/Table';
-export { Parallax, type ParallaxProps } from './experimentals/Parallax';
+export {
+  Parallax,
+  type ParallaxBackProps,
+  type ParallaxContentProps,
+  type ParallaxControlLabels,
+  type ParallaxCorner,
+  type ParallaxFrontProps,
+  type ParallaxProps,
+} from './experimentals/Parallax';
 export { Container, type ContainerProps, type ContainerSize } from './layout/Container';
 export {
   Grid,

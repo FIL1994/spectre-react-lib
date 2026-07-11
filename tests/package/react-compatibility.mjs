@@ -58,6 +58,7 @@ try {
       devDependencies: {
         '@types/react': reactMajor === '18' ? '^18.3.0' : '^19.2.0',
         '@types/react-dom': reactMajor === '18' ? '^18.3.0' : '^19.2.0',
+        'happy-dom': '20.10.6',
         typescript: '7.0.2',
       },
     };

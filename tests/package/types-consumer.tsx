@@ -1,5 +1,18 @@
 import { createRef } from 'react';
-import { Button, Container, Shape, Table, type ShapeProps } from 'spectre-react-lib';
+import {
+  Button,
+  Container,
+  ControlledTab,
+  EmptyState,
+  Pagination,
+  Panel,
+  Shape,
+  Tab,
+  Table,
+  Toast,
+  type ShapeProps,
+} from 'spectre-react-lib';
+import { Parallax } from 'spectre-react-lib/experimental';
 
 interface WrappedShapeProps extends ShapeProps {
   wrapperName?: string;
@@ -22,5 +35,24 @@ export const packageTypesFixture = (
     </Table>
     <Shape {...shapeProps} />
     <Shape shape="rounded" legacyDefaults={false} backgroundColor="success" />
+    <EmptyState title="Empty" subtitle="Nothing here" />
+    <Pagination totalPages={10} activePage={5} />
+    <Panel>
+      <Panel.Body>Body</Panel.Body>
+    </Panel>
+    <Tab>
+      <Tab.Item active />
+    </Tab>
+    <ControlledTab
+      options={[{ label: 'First', value: 'first', render: () => 'Panel' }]}
+      defaultValue="first"
+    />
+    <Toast variant="success" liveRegion="polite" />
+    <Parallax>
+      <Parallax.Content>
+        <Parallax.Front>Front</Parallax.Front>
+        <Parallax.Back>Back</Parallax.Back>
+      </Parallax.Content>
+    </Parallax>
   </Container>
 );
