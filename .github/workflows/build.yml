@@ -18,6 +18,6 @@ jobs:
           bun-version: 1.3.14
 
       - run: bun install --frozen-lockfile
-      - run: bun run build
+      - run: bun run test:package
       - run: bun run build-storybook
       - run: bun run audit

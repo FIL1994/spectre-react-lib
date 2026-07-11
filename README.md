@@ -82,7 +82,7 @@ bun install
 bun run ci
 ```
 
-The current dev stack targets Bun 1.4+ and Node.js 20.19+.
+The supported CI and package-manager baseline is Bun 1.3.14, and local development may use the Bun 1.4 canary. Node.js 20.19+ is required.
 
 ## Automated Releases
 
