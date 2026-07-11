@@ -12,10 +12,7 @@ describe('Table', () => {
 
     const { getByText } = render(
       <Table striped hover centered>
-        <Table.Head
-          headings={['heading', 'heading2']}
-          onHeadingClick={onHeadingClick}
-        />
+        <Table.Head headings={['heading', 'heading2']} onHeadingClick={onHeadingClick} />
         <Table.Body>
           <Table.Row />
         </Table.Body>

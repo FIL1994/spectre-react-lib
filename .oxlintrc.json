@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "typescript/no-unused-vars": "error",
+    "typescript/no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "ts-essentials",
+            "message": "Please use an import type declaration for ts-essentials.",
+            "allowTypeImports": true
+          }
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": ["dist/**", "storybook-static/**", "node_modules/**", "coverage/**"],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true
+  }
+}

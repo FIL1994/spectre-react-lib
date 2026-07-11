@@ -5,9 +5,7 @@ import { ControlledTab } from './ControlledTab';
 describe('Controlled Tab', () => {
   test('renders options', () => {
     const { getByText } = render(
-      <ControlledTab
-        options={[{ label: 'label', value: 'test', render: () => 'test' }]}
-      />
+      <ControlledTab options={[{ label: 'label', value: 'test', render: () => 'test' }]} />
     );
 
     getByText('label');

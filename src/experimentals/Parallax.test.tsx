@@ -37,9 +37,7 @@ describe('Parallax', () => {
     fireEvent.click(bottomLeftElement);
     expect(bottomLeft).toHaveBeenCalled();
 
-    const bottomRightElement = container.querySelector(
-      '.parallax-bottom-right'
-    );
+    const bottomRightElement = container.querySelector('.parallax-bottom-right');
     invariant(bottomRightElement);
     fireEvent.click(bottomRightElement);
 

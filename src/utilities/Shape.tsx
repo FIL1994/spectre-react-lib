@@ -14,12 +14,7 @@ interface LoadingProps {
 /**
  * Shape utilities are used for changing element shapes.
  */
-export const Shape = ({
-  shape,
-  backgroundColor,
-  textColor,
-  ...props
-}: LoadingProps) => {
+export const Shape = ({ shape, backgroundColor, textColor, ...props }: LoadingProps) => {
   let className = 'centered text-center';
 
   if (shape === 'rounded') {

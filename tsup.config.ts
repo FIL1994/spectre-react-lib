@@ -13,7 +13,7 @@ export default defineConfig({
   sourcemap: true,
   minify: true,
   clean: true,
-  dts: true,
+  dts: false,
   splitting: false,
   injectStyle: false,
 });

@@ -66,10 +66,7 @@ export function Button({
     disabled: false,
     tabIndex: undefined,
   } as Pick<
-    React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >,
+    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
     'disabled' | 'tabIndex'
   >;
 
@@ -124,9 +121,7 @@ export function Button({
 
   className = addClass(className, props.className);
 
-  return (
-    <button type="button" {...props} {...otherProps} className={className} />
-  );
+  return <button type="button" {...props} {...otherProps} className={className} />;
 }
 
 interface ButtonGroupProps {

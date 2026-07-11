@@ -18,9 +18,7 @@ export class ControlledTab extends Component<Props> {
   };
 
   renderActive = () => {
-    const activeOption = this.props.options.find(
-      (o) => this.state.active === o.value
-    );
+    const activeOption = this.props.options.find((o) => this.state.active === o.value);
 
     return activeOption ? activeOption.render() : <Fragment />;
   };

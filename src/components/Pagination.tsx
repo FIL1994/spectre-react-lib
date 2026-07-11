@@ -1,4 +1,3 @@
-/* eslint no-script-url: 0 */
 import React from 'react';
 import { addClass, onEnter } from '../helpers';
 
@@ -12,31 +11,20 @@ interface Props {
   totalPages: number;
 }
 
-export function Pagination({
-  activePage = 1,
-  totalPages,
-  centered,
-  onClick,
-  ...props
-}: Props) {
+export function Pagination({ activePage = 1, totalPages, centered, onClick, ...props }: Props) {
   const className = addClass('pagination', props.className);
 
-  const pages = Array.from(new Array(Math.ceil(totalPages)), () => undefined);
+  const pages = Array.from({ length: Math.ceil(totalPages) });
 
   const prevEnabled = !(activePage <= 1);
   const nextEnabled = !(activePage >= totalPages);
   const disabledTab = { tabIndex: -1 };
 
   const onClickBack = (e: React.SyntheticEvent) => onClick(e, activePage - 1);
-  const onClickForward = (e: React.SyntheticEvent) =>
-    onClick(e, activePage + 1);
+  const onClickForward = (e: React.SyntheticEvent) => onClick(e, activePage + 1);
 
   return (
-    <ul
-      style={centered ? { justifyContent: 'center' } : {}}
-      {...props}
-      className={className}
-    >
+    <ul style={centered ? { justifyContent: 'center' } : {}} {...props} className={className}>
       <li
         className={`page-item ${prevEnabled ? '' : 'disabled'}`}
         tabIndex={0}

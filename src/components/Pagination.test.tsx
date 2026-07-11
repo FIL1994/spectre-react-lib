@@ -14,12 +14,7 @@ describe('Pagination', () => {
     const onClickMock = jest.fn();
 
     const { getByText, container } = render(
-      <Pagination
-        onClick={onClickMock}
-        totalPages={10}
-        activePage={2}
-        centered
-      />
+      <Pagination onClick={onClickMock} totalPages={10} activePage={2} centered />
     );
 
     const page1 = getByText('4');
@@ -39,9 +34,7 @@ describe('Pagination', () => {
 
   test('handles one page', () => {
     const onClickMock = jest.fn();
-    const { container } = render(
-      <Pagination onClick={onClickMock} totalPages={1} centered />
-    );
+    const { container } = render(<Pagination onClick={onClickMock} totalPages={1} centered />);
 
     screen.getAllByText('1');
 

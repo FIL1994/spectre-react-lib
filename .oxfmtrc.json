@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "storybook-static/**",
+    "yarn.lock",
+    "*.snap",
+    ".npmrc",
+    ".husky/**",
+    ".gitignore",
+    ".editorconfig",
+    ".env.template"
+  ]
+}

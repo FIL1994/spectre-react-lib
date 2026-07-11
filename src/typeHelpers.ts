@@ -4,16 +4,15 @@ import type React from 'react';
 export type ElementString = keyof React.JSX.IntrinsicElements;
 
 /** The React props on a html element */
-export type HTMLElementProps<
-  Element extends ElementString = 'div',
-> = React.JSX.IntrinsicElements[Element];
+export type HTMLElementProps<Element extends ElementString = 'div'> =
+  React.JSX.IntrinsicElements[Element];
 
 /** Get the props from a React component or a html element */
 export type PropsOrElementProps<Type> = Type extends React.ComponentType
   ? React.ComponentProps<Type>
   : Type extends ElementString
-  ? HTMLElementProps<Type>
-  : never;
+    ? HTMLElementProps<Type>
+    : never;
 
 /** Spread the props from a type */
 export type SpreadProps<Props> = {
@@ -40,5 +39,5 @@ export type AsComponent<
      * ```
      */
     as?: Type;
-  }
+  },
 > = Props & React.ComponentProps<React.FC> & SpreadProps<AsProps>;

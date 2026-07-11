@@ -10,21 +10,10 @@ describe('Button', () => {
 
   test('className props work', () => {
     const { container } = render(
-      <Button
-        large
-        block
-        primary
-        success
-        error
-        link
-        loading
-        centered
-        inputGroup
-      />
+      <Button large block primary success error link loading centered inputGroup />
     );
 
-    const notNull = (query: string) =>
-      expect(container.querySelector(query)).not.toBeNull();
+    const notNull = (query: string) => expect(container.querySelector(query)).not.toBeNull();
 
     notNull('.btn-lg');
     notNull('.btn-block');
