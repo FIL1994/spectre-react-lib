@@ -1,5 +1,6 @@
-import React, { forwardRef, useEffect, useId, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useControllableState } from '../internal/useControllableState';
+import { useStableId } from '../internal/useStableId';
 import { Tab, type TabProps } from './Tab';
 
 export type ControlledTabOrientation = 'horizontal' | 'vertical';
@@ -126,8 +127,7 @@ function useControlledTabBehavior({
   orientation,
   activationMode,
 }: ControlledTabBehaviorOptions) {
-  const generatedId = useId();
-  const baseId = id ?? `controlled-tab-${generatedId}`;
+  const baseId = useStableId(id, 'controlled-tab');
   const firstEnabledIndex = options.findIndex((option) => !option.disabled);
   const [selectedValue, setSelectedValue] = useControllableState({
     value,
