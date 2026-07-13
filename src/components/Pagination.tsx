@@ -117,6 +117,209 @@ interface PaginationRuntimeProps extends PaginationBaseProps {
   getPageAriaLabel?(page: number, current: boolean): string;
 }
 
+interface PaginationControlProps {
+  enabled: boolean;
+  page: number;
+  label: React.ReactNode;
+  ariaLabel: string;
+  getHref?: PaginationProps['getHref'];
+  onSelect(page: number, event: React.MouseEvent<HTMLAnchorElement>): void;
+}
+
+function PaginationControl({
+  enabled,
+  page,
+  label,
+  ariaLabel,
+  getHref,
+  onSelect,
+}: PaginationControlProps) {
+  return (
+    <li className={addClass('page-item', enabled ? undefined : 'disabled')}>
+      <a
+        href={enabled ? (getHref?.(page) ?? `#page-${page}`) : undefined}
+        role={enabled ? undefined : 'link'}
+        aria-disabled={enabled ? undefined : true}
+        aria-label={ariaLabel}
+        tabIndex={enabled ? undefined : -1}
+        onClick={(event) => {
+          if (!enabled) {
+            event.preventDefault();
+            return;
+          }
+          onSelect(page, event);
+        }}
+      >
+        {label}
+      </a>
+    </li>
+  );
+}
+
+interface PaginationItemProps {
+  token: PageToken;
+  activePage: number;
+  ellipsisLabel: React.ReactNode;
+  getHref?: PaginationProps['getHref'];
+  getPageAriaLabel: NonNullable<PaginationProps['getPageAriaLabel']>;
+  onSelect(page: number, event: React.MouseEvent<HTMLAnchorElement>): void;
+}
+
+function PaginationItem({
+  token,
+  activePage,
+  ellipsisLabel,
+  getHref,
+  getPageAriaLabel,
+  onSelect,
+}: PaginationItemProps) {
+  if (typeof token !== 'number') {
+    return (
+      <li className="page-item" aria-hidden="true">
+        <span>{ellipsisLabel}</span>
+      </li>
+    );
+  }
+
+  const current = token === activePage;
+
+  return (
+    <li className={addClass('page-item', current ? 'active' : undefined)}>
+      <a
+        href={getHref?.(token) ?? `#page-${token}`}
+        aria-current={current ? 'page' : undefined}
+        aria-label={getPageAriaLabel(token, current)}
+        onClick={(event) => onSelect(token, event)}
+      >
+        {token}
+      </a>
+    </li>
+  );
+}
+
+interface NormalizedPagination {
+  activePage: number;
+  nextEnabled: boolean;
+  previousEnabled: boolean;
+  tokens: PageToken[];
+}
+
+function normalizeCount(value: number, fallback: number) {
+  return Number.isFinite(value) ? Math.max(0, Math.floor(value)) : fallback;
+}
+
+function normalizeTotalPages(totalPages: number) {
+  return Number.isFinite(totalPages) && totalPages > 0 ? Math.ceil(totalPages) : 0;
+}
+
+function normalizeActivePage(activePage: number, totalPages: number) {
+  if (totalPages === 0) return 0;
+  const finiteActivePage = Number.isFinite(activePage) ? Math.floor(activePage) : 1;
+  return Math.min(totalPages, Math.max(1, finiteActivePage));
+}
+
+function normalizePagination(
+  totalPages: number,
+  activePage: number,
+  siblingCount: number,
+  boundaryCount: number
+): NormalizedPagination {
+  const normalizedTotal = normalizeTotalPages(totalPages);
+  const normalizedActive = normalizeActivePage(activePage, normalizedTotal);
+  const normalizedSiblings = normalizeCount(siblingCount, 1);
+  const normalizedBoundaries = normalizeCount(boundaryCount, 1);
+
+  return {
+    activePage: normalizedActive,
+    previousEnabled: normalizedActive > 1,
+    nextEnabled: normalizedActive > 0 && normalizedActive < normalizedTotal,
+    tokens: createPageWindow(
+      normalizedTotal,
+      normalizedActive,
+      normalizedSiblings,
+      normalizedBoundaries
+    ),
+  };
+}
+
+type PageChangeHandler = (page: number, event: React.MouseEvent<HTMLAnchorElement>) => void;
+
+function createPageChangeHandler(
+  getHref: PaginationProps['getHref'],
+  onPageChange: PaginationProps['onPageChange'],
+  onClick: PaginationProps['onClick']
+): PageChangeHandler {
+  return (page, event) => {
+    if (!getHref && (onPageChange || onClick)) event.preventDefault();
+    if (onPageChange) onPageChange(page, event);
+    else onClick?.(event, page);
+  };
+}
+
+interface GeneratedPaginationProps {
+  pagination: NormalizedPagination;
+  previousLabel: React.ReactNode;
+  nextLabel: React.ReactNode;
+  ellipsisLabel: React.ReactNode;
+  previousAriaLabel: string;
+  nextAriaLabel: string;
+  getHref: PaginationProps['getHref'];
+  getPageAriaLabel: NonNullable<PaginationProps['getPageAriaLabel']>;
+  onSelect: PageChangeHandler;
+}
+
+function GeneratedPagination({
+  pagination,
+  previousLabel,
+  nextLabel,
+  ellipsisLabel,
+  previousAriaLabel,
+  nextAriaLabel,
+  getHref,
+  getPageAriaLabel,
+  onSelect,
+}: GeneratedPaginationProps) {
+  return (
+    <>
+      <PaginationControl
+        enabled={pagination.previousEnabled}
+        page={pagination.activePage - 1}
+        label={previousLabel}
+        ariaLabel={previousAriaLabel}
+        getHref={getHref}
+        onSelect={onSelect}
+      />
+      {pagination.tokens.map((token) => (
+        <PaginationItem
+          key={token}
+          token={token}
+          activePage={pagination.activePage}
+          ellipsisLabel={ellipsisLabel}
+          getHref={getHref}
+          getPageAriaLabel={getPageAriaLabel}
+          onSelect={onSelect}
+        />
+      ))}
+      <PaginationControl
+        enabled={pagination.nextEnabled}
+        page={pagination.activePage + 1}
+        label={nextLabel}
+        ariaLabel={nextAriaLabel}
+        getHref={getHref}
+        onSelect={onSelect}
+      />
+    </>
+  );
+}
+
+function getPaginationStyle(centered: boolean | undefined, style: React.CSSProperties | undefined) {
+  return centered ? { justifyContent: 'center', ...style } : style;
+}
+
+function getPaginationAriaLabel(ariaLabel: string | undefined) {
+  return ariaLabel ?? 'Pagination';
+}
+
 const PaginationRoot = forwardRef<HTMLUListElement, PaginationComponentProps>(function Pagination(
   {
     children,
@@ -139,62 +342,9 @@ const PaginationRoot = forwardRef<HTMLUListElement, PaginationComponentProps>(fu
   ref
 ) {
   const className = addClass('pagination', props.className);
-  const normalizedTotal = Number.isFinite(totalPages) && totalPages > 0 ? Math.ceil(totalPages) : 0;
-  const normalizedActive =
-    normalizedTotal === 0
-      ? 0
-      : Math.min(
-          normalizedTotal,
-          Math.max(1, Number.isFinite(activePage) ? Math.floor(activePage) : 1)
-        );
-  const normalizedSiblings = Number.isFinite(siblingCount)
-    ? Math.max(0, Math.floor(siblingCount))
-    : 1;
-  const normalizedBoundaries = Number.isFinite(boundaryCount)
-    ? Math.max(0, Math.floor(boundaryCount))
-    : 1;
-  const tokens = createPageWindow(
-    normalizedTotal,
-    normalizedActive,
-    normalizedSiblings,
-    normalizedBoundaries
-  );
-  const previousEnabled = normalizedActive > 1;
-  const nextEnabled = normalizedActive > 0 && normalizedActive < normalizedTotal;
-  const style = centered ? { justifyContent: 'center', ...props.style } : props.style;
-
-  const invokePageChange = (event: React.MouseEvent<HTMLAnchorElement>, page: number) => {
-    if (!getHref && (onPageChange || onClick)) event.preventDefault();
-
-    if (onPageChange) onPageChange(page, event);
-    else onClick?.(event, page);
-  };
-
-  const renderControl = (
-    enabled: boolean,
-    page: number,
-    label: React.ReactNode,
-    ariaLabel: string
-  ) => (
-    <li className={addClass('page-item', enabled ? undefined : 'disabled')}>
-      <a
-        href={enabled ? (getHref?.(page) ?? `#page-${page}`) : undefined}
-        role={enabled ? undefined : 'link'}
-        aria-disabled={enabled ? undefined : true}
-        aria-label={ariaLabel}
-        tabIndex={enabled ? undefined : -1}
-        onClick={(event) => {
-          if (!enabled) {
-            event.preventDefault();
-            return;
-          }
-          invokePageChange(event, page);
-        }}
-      >
-        {label}
-      </a>
-    </li>
-  );
+  const pagination = normalizePagination(totalPages, activePage, siblingCount, boundaryCount);
+  const style = getPaginationStyle(centered, props.style);
+  const onSelect = createPageChangeHandler(getHref, onPageChange, onClick);
 
   return (
     <ul
@@ -202,38 +352,22 @@ const PaginationRoot = forwardRef<HTMLUListElement, PaginationComponentProps>(fu
       ref={ref}
       style={style}
       className={className}
-      aria-label={props['aria-label'] ?? 'Pagination'}
+      aria-label={getPaginationAriaLabel(props['aria-label'])}
     >
       {children !== undefined ? (
         children
       ) : (
-        <>
-          {renderControl(previousEnabled, normalizedActive - 1, previousLabel, previousAriaLabel)}
-          {tokens.map((token) => {
-            if (typeof token !== 'number') {
-              return (
-                <li key={token} className="page-item" aria-hidden="true">
-                  <span>{ellipsisLabel}</span>
-                </li>
-              );
-            }
-
-            const current = token === normalizedActive;
-            return (
-              <li key={token} className={addClass('page-item', current ? 'active' : undefined)}>
-                <a
-                  href={getHref?.(token) ?? `#page-${token}`}
-                  aria-current={current ? 'page' : undefined}
-                  aria-label={getPageAriaLabel(token, current)}
-                  onClick={(event) => invokePageChange(event, token)}
-                >
-                  {token}
-                </a>
-              </li>
-            );
-          })}
-          {renderControl(nextEnabled, normalizedActive + 1, nextLabel, nextAriaLabel)}
-        </>
+        <GeneratedPagination
+          pagination={pagination}
+          previousLabel={previousLabel}
+          nextLabel={nextLabel}
+          ellipsisLabel={ellipsisLabel}
+          previousAriaLabel={previousAriaLabel}
+          nextAriaLabel={nextAriaLabel}
+          getHref={getHref}
+          getPageAriaLabel={getPageAriaLabel}
+          onSelect={onSelect}
+        />
       )}
     </ul>
   );
@@ -245,5 +379,3 @@ export const Pagination = Object.assign(PaginationRoot, {
   Title: PaginationTitle,
   Subtitle: PaginationSubtitle,
 });
-
-export default Pagination;

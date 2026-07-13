@@ -55,6 +55,280 @@ function findLastEnabledIndex(options: readonly ControlledTabOption[]) {
   return -1;
 }
 
+type TabKeyboardAction =
+  | { type: 'move'; direction: 1 | -1 }
+  | { type: 'first' | 'last' | 'activate' };
+
+const orientationKeyDirections: Record<
+  ControlledTabOrientation,
+  Partial<Record<string, 1 | -1>>
+> = {
+  horizontal: { ArrowRight: 1, ArrowLeft: -1 },
+  vertical: { ArrowDown: 1, ArrowUp: -1 },
+};
+
+function getKeyboardAction(
+  key: string,
+  orientation: ControlledTabOrientation,
+  activationMode: ControlledTabActivationMode
+): TabKeyboardAction | undefined {
+  const direction = orientationKeyDirections[orientation][key];
+  if (direction) return { type: 'move', direction };
+  if (key === 'Home') return { type: 'first' };
+  if (key === 'End') return { type: 'last' };
+  if (activationMode === 'manual' && (key === 'Enter' || key === ' ')) {
+    return { type: 'activate' };
+  }
+  return undefined;
+}
+
+function getInitialValue(
+  options: readonly ControlledTabOption[],
+  firstEnabledIndex: number,
+  defaultValue?: string,
+  defaultActive?: string
+) {
+  return defaultValue ?? defaultActive ?? options[firstEnabledIndex]?.value;
+}
+
+function getRovingIndex(
+  options: readonly ControlledTabOption[],
+  focusValue: string | undefined,
+  selectedIndex: number,
+  firstEnabledIndex: number
+) {
+  const storedFocusIndex = options.findIndex(
+    (option) => option.value === focusValue && !option.disabled
+  );
+  if (storedFocusIndex >= 0) return storedFocusIndex;
+  if (selectedIndex >= 0 && !options[selectedIndex]?.disabled) return selectedIndex;
+  return firstEnabledIndex;
+}
+
+interface ControlledTabBehaviorOptions {
+  id?: string;
+  options: readonly ControlledTabOption[];
+  value?: string;
+  defaultValue?: string;
+  defaultActive?: string;
+  onValueChange?(value: string): void;
+  orientation: ControlledTabOrientation;
+  activationMode: ControlledTabActivationMode;
+}
+
+function useControlledTabBehavior({
+  id,
+  options,
+  value,
+  defaultValue,
+  defaultActive,
+  onValueChange,
+  orientation,
+  activationMode,
+}: ControlledTabBehaviorOptions) {
+  const generatedId = useId();
+  const baseId = id ?? `controlled-tab-${generatedId}`;
+  const firstEnabledIndex = options.findIndex((option) => !option.disabled);
+  const [selectedValue, setSelectedValue] = useControllableState({
+    value,
+    defaultValue: getInitialValue(options, firstEnabledIndex, defaultValue, defaultActive),
+    onValueChange,
+    componentName: 'ControlledTab',
+  });
+  const selectedIndex = options.findIndex((option) => option.value === selectedValue);
+  const activeOption = selectedIndex >= 0 ? options[selectedIndex] : undefined;
+  const initialFocusValue = activeOption?.disabled
+    ? options[firstEnabledIndex]?.value
+    : (selectedValue ?? options[firstEnabledIndex]?.value);
+  const [focusValue, setFocusValue] = useState(initialFocusValue);
+  const rovingIndex = getRovingIndex(options, focusValue, selectedIndex, firstEnabledIndex);
+  const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    if (selectedIndex < 0 || activeOption?.disabled || selectedValue === undefined) return;
+
+    const focusIsInside = tabRefs.current.some((tab) => tab === document.activeElement);
+    if (activationMode === 'manual' && focusIsInside) return;
+
+    setFocusValue(selectedValue);
+  }, [activationMode, activeOption?.disabled, selectedIndex, selectedValue]);
+
+  const activateOption = (index: number) => {
+    const option = options[index];
+    if (!option || option.disabled || option.value === selectedValue) return;
+    setSelectedValue(option.value);
+  };
+
+  const focusOption = (index: number, activate: boolean) => {
+    const option = options[index];
+    if (!option || option.disabled) return;
+
+    setFocusValue(option.value);
+    tabRefs.current[index]?.focus();
+    if (activate) activateOption(index);
+  };
+
+  const onTabClick = (event: React.MouseEvent<HTMLAnchorElement>, index: number) => {
+    event.preventDefault();
+    const option = options[index];
+    if (!option || option.disabled) return;
+    setFocusValue(option.value);
+    activateOption(index);
+  };
+
+  const onTabKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
+    const action = getKeyboardAction(event.key, orientation, activationMode);
+    if (!action) return;
+
+    event.preventDefault();
+    if (action.type === 'activate') {
+      activateOption(index);
+      return;
+    }
+
+    const nextIndex =
+      action.type === 'move'
+        ? findEnabledIndex(options, index, action.direction)
+        : action.type === 'first'
+          ? firstEnabledIndex
+          : findLastEnabledIndex(options);
+    if (nextIndex < 0) return;
+    focusOption(nextIndex, activationMode === 'automatic');
+  };
+
+  const setTabRef = (index: number, element: HTMLAnchorElement | null) => {
+    tabRefs.current[index] = element;
+  };
+
+  return {
+    activeOption,
+    baseId,
+    onTabClick,
+    onTabKeyDown,
+    rovingIndex,
+    selectedIndex,
+    selectedValue,
+    setTabRef,
+  };
+}
+
+interface ControlledTabItemProps {
+  option: ControlledTabOption;
+  index: number;
+  active: boolean;
+  focusable: boolean;
+  baseId: string;
+  panelId: string;
+  onClick(event: React.MouseEvent<HTMLAnchorElement>, index: number): void;
+  onKeyDown(event: React.KeyboardEvent<HTMLAnchorElement>, index: number): void;
+  setTabRef(index: number, element: HTMLAnchorElement | null): void;
+}
+
+function ControlledTabItem({
+  option,
+  index,
+  active,
+  focusable,
+  baseId,
+  panelId,
+  onClick,
+  onKeyDown,
+  setTabRef,
+}: ControlledTabItemProps) {
+  return (
+    <Tab.Item
+      active={active}
+      className={option.disabled ? 'disabled' : undefined}
+      role="presentation"
+    >
+      <a
+        ref={(element) => setTabRef(index, element)}
+        id={`${baseId}-tab-${index}`}
+        href={option.disabled ? undefined : `#${panelId}`}
+        role="tab"
+        aria-selected={active}
+        aria-controls={panelId}
+        aria-disabled={option.disabled || undefined}
+        tabIndex={!option.disabled && focusable ? 0 : -1}
+        onClick={(event) => onClick(event, index)}
+        onKeyDown={(event) => onKeyDown(event, index)}
+      >
+        {option.label}
+      </a>
+    </Tab.Item>
+  );
+}
+
+interface ControlledTabItemsProps {
+  options: readonly ControlledTabOption[];
+  selectedValue: string | undefined;
+  rovingIndex: number;
+  baseId: string;
+  panelId: string;
+  onClick: ControlledTabItemProps['onClick'];
+  onKeyDown: ControlledTabItemProps['onKeyDown'];
+  setTabRef: ControlledTabItemProps['setTabRef'];
+}
+
+function ControlledTabItems({
+  options,
+  selectedValue,
+  rovingIndex,
+  baseId,
+  panelId,
+  onClick,
+  onKeyDown,
+  setTabRef,
+}: ControlledTabItemsProps) {
+  return options.map((option, index) => (
+    <ControlledTabItem
+      key={`${option.value}-${index}`}
+      option={option}
+      index={index}
+      active={selectedValue === option.value}
+      focusable={index === rovingIndex}
+      baseId={baseId}
+      panelId={panelId}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      setTabRef={setTabRef}
+    />
+  ));
+}
+
+interface ControlledTabPanelViewProps extends ControlledTabPanelProps {
+  activeOption: ControlledTabOption | undefined;
+  baseId: string;
+  panelId: string;
+  selectedIndex: number;
+}
+
+function ControlledTabPanelView({
+  activeOption,
+  baseId,
+  panelId,
+  selectedIndex,
+  ...panelProps
+}: ControlledTabPanelViewProps) {
+  return (
+    <div
+      {...panelProps}
+      id={panelId}
+      role="tabpanel"
+      aria-labelledby={selectedIndex >= 0 ? `${baseId}-tab-${selectedIndex}` : undefined}
+      tabIndex={panelProps.tabIndex ?? (activeOption ? 0 : -1)}
+      style={{ marginTop: 10, ...panelProps.style }}
+    >
+      {activeOption?.render()}
+    </div>
+  );
+}
+
+function getTabListAriaLabel(ariaLabel?: string, ariaLabelledBy?: string) {
+  if (ariaLabel !== undefined || ariaLabelledBy !== undefined) return ariaLabel;
+  return 'Tabs';
+}
+
 export const ControlledTab = forwardRef<HTMLUListElement, ControlledTabProps>(
   function ControlledTab(
     {
@@ -74,151 +348,48 @@ export const ControlledTab = forwardRef<HTMLUListElement, ControlledTabProps>(
     },
     ref
   ) {
-    const generatedId = useId();
-    const baseId = id ?? `controlled-tab-${generatedId}`;
-    const panelId = `${baseId}-panel`;
-    const firstEnabledIndex = options.findIndex((option) => !option.disabled);
-    const initialValue =
-      defaultValue !== undefined
-        ? defaultValue
-        : defaultActive !== undefined
-          ? defaultActive
-          : options[firstEnabledIndex]?.value;
-    const [selectedValue, setSelectedValue] = useControllableState({
+    const behavior = useControlledTabBehavior({
+      id,
+      options,
       value,
-      defaultValue: initialValue,
+      defaultValue,
+      defaultActive,
       onValueChange,
-      componentName: 'ControlledTab',
+      orientation,
+      activationMode,
     });
-    const selectedIndex = options.findIndex((option) => option.value === selectedValue);
-    const activeOption = selectedIndex >= 0 ? options[selectedIndex] : undefined;
-    const initialFocusValue =
-      selectedIndex >= 0 && !activeOption?.disabled
-        ? selectedValue
-        : options[firstEnabledIndex]?.value;
-    const [focusValue, setFocusValue] = useState(initialFocusValue);
-    const storedFocusIndex = options.findIndex(
-      (option) => option.value === focusValue && !option.disabled
-    );
-    const rovingIndex =
-      storedFocusIndex >= 0
-        ? storedFocusIndex
-        : selectedIndex >= 0 && !activeOption?.disabled
-          ? selectedIndex
-          : firstEnabledIndex;
-    const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-
-    useEffect(() => {
-      if (selectedIndex < 0 || activeOption?.disabled) return;
-
-      const focusIsInside = tabRefs.current.some((tab) => tab === document.activeElement);
-      if (activationMode === 'manual' && focusIsInside) return;
-
-      setFocusValue(selectedValue);
-    }, [activationMode, activeOption?.disabled, selectedIndex, selectedValue]);
-
-    const activateOption = (index: number) => {
-      const option = options[index];
-      if (!option || option.disabled || option.value === selectedValue) return;
-      setSelectedValue(option.value);
-    };
-
-    const focusOption = (index: number, activate: boolean) => {
-      const option = options[index];
-      if (!option || option.disabled) return;
-
-      setFocusValue(option.value);
-      tabRefs.current[index]?.focus();
-      if (activate) activateOption(index);
-    };
-
-    const onTabKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
-      let nextIndex = -1;
-
-      if (
-        (orientation === 'horizontal' && event.key === 'ArrowRight') ||
-        (orientation === 'vertical' && event.key === 'ArrowDown')
-      ) {
-        nextIndex = findEnabledIndex(options, index, 1);
-      } else if (
-        (orientation === 'horizontal' && event.key === 'ArrowLeft') ||
-        (orientation === 'vertical' && event.key === 'ArrowUp')
-      ) {
-        nextIndex = findEnabledIndex(options, index, -1);
-      } else if (event.key === 'Home') {
-        nextIndex = firstEnabledIndex;
-      } else if (event.key === 'End') {
-        nextIndex = findLastEnabledIndex(options);
-      } else if (activationMode === 'manual' && (event.key === 'Enter' || event.key === ' ')) {
-        event.preventDefault();
-        activateOption(index);
-        return;
-      }
-
-      if (nextIndex < 0) return;
-
-      event.preventDefault();
-      focusOption(nextIndex, activationMode === 'automatic');
-    };
+    const panelId = `${behavior.baseId}-panel`;
 
     return (
       <>
         <Tab
           {...props}
           ref={ref}
-          id={baseId}
+          id={behavior.baseId}
           block={block}
           role="tablist"
           aria-orientation={orientation}
-          aria-label={ariaLabel !== undefined || ariaLabelledBy !== undefined ? ariaLabel : 'Tabs'}
+          aria-label={getTabListAriaLabel(ariaLabel, ariaLabelledBy)}
           aria-labelledby={ariaLabelledBy}
         >
-          {options.map((option, index) => {
-            const active = selectedValue === option.value;
-            const tabId = `${baseId}-tab-${index}`;
-
-            return (
-              <Tab.Item
-                key={`${option.value}-${index}`}
-                active={active}
-                className={option.disabled ? 'disabled' : undefined}
-                role="presentation"
-              >
-                <a
-                  ref={(element) => {
-                    tabRefs.current[index] = element;
-                  }}
-                  id={tabId}
-                  href={option.disabled ? undefined : `#${panelId}`}
-                  role="tab"
-                  aria-selected={active}
-                  aria-controls={panelId}
-                  aria-disabled={option.disabled || undefined}
-                  tabIndex={!option.disabled && index === rovingIndex ? 0 : -1}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    if (option.disabled) return;
-                    setFocusValue(option.value);
-                    activateOption(index);
-                  }}
-                  onKeyDown={(event) => onTabKeyDown(event, index)}
-                >
-                  {option.label}
-                </a>
-              </Tab.Item>
-            );
-          })}
+          <ControlledTabItems
+            options={options}
+            selectedValue={behavior.selectedValue}
+            rovingIndex={behavior.rovingIndex}
+            baseId={behavior.baseId}
+            panelId={panelId}
+            onClick={behavior.onTabClick}
+            onKeyDown={behavior.onTabKeyDown}
+            setTabRef={behavior.setTabRef}
+          />
         </Tab>
-        <div
+        <ControlledTabPanelView
           {...panelProps}
-          id={panelId}
-          role="tabpanel"
-          aria-labelledby={selectedIndex >= 0 ? `${baseId}-tab-${selectedIndex}` : undefined}
-          tabIndex={panelProps?.tabIndex ?? (activeOption ? 0 : -1)}
-          style={{ marginTop: 10, ...panelProps?.style }}
-        >
-          {activeOption?.render()}
-        </div>
+          activeOption={behavior.activeOption}
+          baseId={behavior.baseId}
+          panelId={panelId}
+          selectedIndex={behavior.selectedIndex}
+        />
       </>
     );
   }

@@ -35,6 +35,41 @@ export interface GridColumnProps extends React.ComponentPropsWithoutRef<'div'> {
   autoMargin?: GridAutoMargin;
 }
 
+const autoMarginClasses: Record<GridAutoMargin, string> = {
+  left: 'col-ml-auto',
+  right: 'col-mr-auto',
+  both: 'col-mx-auto',
+};
+
+function getWidthClass(prefix: string, width: GridWidth | LegacyGridWidth | undefined) {
+  return width === undefined ? undefined : `${prefix}-${width}`;
+}
+
+function getGridColumnClassName({
+  width,
+  xs,
+  sm,
+  md,
+  lg,
+  xl,
+  autoMargin,
+  className,
+}: GridColumnProps) {
+  return [
+    'column',
+    getWidthClass('col', width),
+    getWidthClass('col-xs', xs),
+    getWidthClass('col-sm', sm),
+    getWidthClass('col-md', md),
+    getWidthClass('col-lg', lg),
+    getWidthClass('col-xl', xl),
+    autoMargin ? autoMarginClasses[autoMargin] : undefined,
+    className,
+  ]
+    .filter((value): value is string => Boolean(value))
+    .join(' ');
+}
+
 const GridRoot = forwardRef<HTMLDivElement, GridProps>(function Grid(
   { gapless, oneline, ...props },
   ref
@@ -52,20 +87,16 @@ const GridColumn = forwardRef<HTMLDivElement, GridColumnProps>(function GridColu
   { width, xs, sm, md, lg, xl, autoMargin, ...props },
   ref
 ) {
-  let className = 'column';
-
-  if (width !== undefined) className = addClass(className, `col-${width}`);
-  if (xs !== undefined) className = addClass(className, `col-xs-${xs}`);
-  if (sm !== undefined) className = addClass(className, `col-sm-${sm}`);
-  if (md !== undefined) className = addClass(className, `col-md-${md}`);
-  if (lg !== undefined) className = addClass(className, `col-lg-${lg}`);
-  if (xl !== undefined) className = addClass(className, `col-xl-${xl}`);
-
-  if (autoMargin === 'left') className = addClass(className, 'col-ml-auto');
-  if (autoMargin === 'right') className = addClass(className, 'col-mr-auto');
-  if (autoMargin === 'both') className = addClass(className, 'col-mx-auto');
-
-  className = addClass(className, props.className);
+  const className = getGridColumnClassName({
+    width,
+    xs,
+    sm,
+    md,
+    lg,
+    xl,
+    autoMargin,
+    className: props.className,
+  });
 
   return <div {...props} ref={ref} className={className} />;
 });

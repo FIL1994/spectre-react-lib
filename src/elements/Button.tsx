@@ -63,6 +63,94 @@ export interface ButtonGroupProps extends React.ComponentPropsWithoutRef<'div'> 
   block?: boolean;
 }
 
+interface ButtonClassOptions {
+  variant?: ButtonVariant;
+  controlSize?: ControlSize;
+  action?: boolean;
+  clear?: boolean;
+  active?: boolean;
+  block?: boolean;
+  loading?: boolean;
+  large?: boolean;
+  small?: boolean;
+  primary?: boolean;
+  success?: boolean;
+  error?: boolean;
+  link?: boolean;
+  centered?: boolean;
+  inputGroup?: boolean;
+  size?: Size;
+  disabled?: boolean;
+  className?: string;
+}
+
+const variantClasses: Record<Exclude<ButtonVariant, 'default'>, string> = {
+  primary: 'btn-primary',
+  success: 'btn-success',
+  error: 'btn-error',
+  link: 'btn-link',
+};
+
+function getSizeClass(controlSize: ControlSize | undefined, large?: boolean, small?: boolean) {
+  if (controlSize === 'lg' || (controlSize === undefined && large)) return 'btn-lg';
+  if (controlSize === 'sm' || (controlSize === undefined && small)) return 'btn-sm';
+  return undefined;
+}
+
+function getVariantClasses({ variant, primary, success, error, link }: ButtonClassOptions) {
+  if (variant !== undefined) return variant === 'default' ? undefined : variantClasses[variant];
+
+  return [
+    primary ? variantClasses.primary : undefined,
+    success ? variantClasses.success : undefined,
+    error ? variantClasses.error : undefined,
+    link ? variantClasses.link : undefined,
+  ];
+}
+
+function when(condition: boolean | undefined, className: string) {
+  return condition ? className : undefined;
+}
+
+function getColumnClass(size: Size | undefined) {
+  return size ? `col-${size.toString().trim()}` : undefined;
+}
+
+function toClassNameArray(classNames: string | (string | undefined)[] | undefined) {
+  return Array.isArray(classNames) ? classNames : [classNames];
+}
+
+function getButtonClassName(options: ButtonClassOptions) {
+  const variantClassNames = getVariantClasses(options);
+
+  return [
+    'btn',
+    getColumnClass(options.size),
+    getSizeClass(options.controlSize, options.large, options.small),
+    when(options.block, 'btn-block'),
+    ...toClassNameArray(variantClassNames),
+    when(options.action, 'btn-action'),
+    when(options.clear, 'btn-clear'),
+    when(options.active, 'active'),
+    when(options.loading, 'loading'),
+    when(options.centered, 'centered text-center'),
+    when(options.inputGroup, 'input-group-btn'),
+    when(options.disabled, 'disabled'),
+    options.className,
+  ]
+    .filter((className): className is string => Boolean(className))
+    .join(' ');
+}
+
+function getButtonTabIndex(disabled: boolean | undefined, tabIndex: number | undefined) {
+  return disabled ? -1 : tabIndex;
+}
+
+function getButtonAriaBusy(ariaBusy: React.AriaAttributes['aria-busy'], loading?: boolean) {
+  if (ariaBusy !== undefined) return ariaBusy;
+  return loading || undefined;
+}
+
 const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant,
@@ -88,35 +176,27 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   },
   ref
 ) {
-  let className = 'btn';
-  const tabIndex = disabled ? -1 : props.tabIndex;
-
-  if (size) className = `${className} col-${size.toString().trim()}`;
-  if (controlSize === 'lg' || (controlSize === undefined && large)) {
-    className = addClass(className, 'btn-lg');
-  } else if (controlSize === 'sm' || (controlSize === undefined && small)) {
-    className = addClass(className, 'btn-sm');
-  }
-  if (block) className = addClass(className, 'btn-block');
-
-  if (variant === undefined) {
-    if (primary) className = addClass(className, 'btn-primary');
-    if (success) className = addClass(className, 'btn-success');
-    if (error) className = addClass(className, 'btn-error');
-    if (link) className = addClass(className, 'btn-link');
-  } else if (variant !== 'default') {
-    className = addClass(className, `btn-${variant}`);
-  }
-
-  if (action) className = addClass(className, 'btn-action');
-  if (clear) className = addClass(className, 'btn-clear');
-  if (active) className = addClass(className, 'active');
-  if (loading) className = addClass(className, 'loading');
-  if (centered) className = addClass(className, 'centered text-center');
-  if (inputGroup) className = addClass(className, 'input-group-btn');
-  if (disabled) className = addClass(className, 'disabled');
-
-  className = addClass(className, props.className);
+  const tabIndex = getButtonTabIndex(disabled, props.tabIndex);
+  const className = getButtonClassName({
+    variant,
+    controlSize,
+    action,
+    clear,
+    active,
+    small,
+    large,
+    block,
+    primary,
+    centered,
+    disabled,
+    success,
+    error,
+    loading,
+    link,
+    inputGroup,
+    size,
+    className: props.className,
+  });
 
   return (
     <button
@@ -125,7 +205,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       type={type}
       disabled={disabled}
       tabIndex={tabIndex}
-      aria-busy={ariaBusy ?? (loading ? true : undefined)}
+      aria-busy={getButtonAriaBusy(ariaBusy, loading)}
       className={className}
     />
   );
