@@ -4,10 +4,10 @@ import { Loading } from './Loading';
 const meta = {
   title: 'Utilities/Loading',
   component: Loading,
-  parameters: {},
   tags: ['autodocs'],
-  argTypes: {},
-  args: {},
+  args: {
+    label: 'Loading',
+  },
 } satisfies Meta<typeof Loading>;
 
 export default meta;
@@ -20,5 +20,6 @@ export const Basic: Story = {
 export const Large: Story = {
   args: {
     large: true,
+    label: 'Loading a large result',
   },
 };

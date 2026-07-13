@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 const packageDirectory = fileURLToPath(new URL('../..', import.meta.url));
 const fixtureSource = fileURLToPath(new URL('./react-consumer.mjs', import.meta.url));
+const typesFixtureSource = fileURLToPath(new URL('./types-consumer.tsx', import.meta.url));
+const typesConfigSource = fileURLToPath(new URL('./types-consumer-tsconfig.json', import.meta.url));
 const temporaryDirectory = mkdtempSync(join(tmpdir(), 'spectre-react-lib-'));
 
 /**
@@ -42,6 +44,7 @@ try {
   const tarball = join(temporaryDirectory, tarballName);
 
   for (const version of ['18.3.1', '19.2.7']) {
+    const reactMajor = version.split('.')[0];
     const fixtureDirectory = join(temporaryDirectory, `react-${version}`);
     const fixturePackage = {
       name: `spectre-react-lib-react-${version}-fixture`,
@@ -52,6 +55,12 @@ try {
         'react-dom': version,
         'spectre-react-lib': `file:${tarball}`,
       },
+      devDependencies: {
+        '@types/react': reactMajor === '18' ? '^18.3.0' : '^19.2.0',
+        '@types/react-dom': reactMajor === '18' ? '^18.3.0' : '^19.2.0',
+        'happy-dom': '20.10.6',
+        typescript: '7.0.2',
+      },
     };
 
     mkdirSync(fixtureDirectory, { recursive: true });
@@ -60,9 +69,12 @@ try {
       `${JSON.stringify(fixturePackage, null, 2)}\n`
     );
     copyFileSync(fixtureSource, join(fixtureDirectory, 'react-consumer.mjs'));
+    copyFileSync(typesFixtureSource, join(fixtureDirectory, 'types-consumer.tsx'));
+    copyFileSync(typesConfigSource, join(fixtureDirectory, 'tsconfig.json'));
 
     run('bun', ['install', '--ignore-scripts', '--no-progress'], fixtureDirectory);
-    run('node', ['react-consumer.mjs', version.split('.')[0]], fixtureDirectory);
+    run('node', ['react-consumer.mjs', reactMajor], fixtureDirectory);
+    run('bunx', ['tsc', '--project', 'tsconfig.json'], fixtureDirectory);
   }
 } finally {
   rmSync(temporaryDirectory, { recursive: true, force: true });

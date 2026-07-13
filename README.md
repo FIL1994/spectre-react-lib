@@ -53,6 +53,7 @@ import {
   Toast,
   Button,
   Table,
+  Container,
   Grid,
   Divider,
   Loading,
@@ -61,10 +62,89 @@ import {
 } from 'spectre-react-lib';
 ```
 
+### Core primitive examples
+
+Use `Container` and `Grid` for canonical Spectre layout:
+
+```tsx
+<Container size="lg">
+  <Grid>
+    <Grid.Column width={8} md={12}>
+      Main content
+    </Grid.Column>
+    <Grid.Column width={4} md={12}>
+      Sidebar
+    </Grid.Column>
+  </Grid>
+</Container>
+```
+
+Buttons use exclusive variants and component-specific control sizes:
+
+```tsx
+<Button variant="primary" controlSize="lg" loading={isSaving}>
+  Save
+</Button>
+```
+
+Tables expose semantic compound parts:
+
+```tsx
+<Table striped hover scrollable>
+  <Table.Caption>Accounts</Table.Caption>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell scope="col">Name</Table.HeaderCell>
+      <Table.HeaderCell scope="col">Balance</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row active>
+      <Table.Cell>Ada</Table.Cell>
+      <Table.Cell>$10</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+```
+
+### Component parity examples
+
+Controlled tabs support controlled or uncontrolled state, disabled options, orientation, and manual activation:
+
+```tsx
+<ControlledTab
+  options={tabs}
+  value={activeTab}
+  onValueChange={setActiveTab}
+  activationMode="manual"
+/>
+```
+
+Toasts use exclusive Spectre variants and opt-in live-region behavior:
+
+```tsx
+<Toast variant="success" liveRegion="polite" onDismiss={dismissToast}>
+  Changes saved.
+</Toast>
+```
+
+See [`docs/migration-guide.md`](docs/migration-guide.md) for compatibility APIs and deprecations.
+
 Experimental components use a separate entrypoint:
 
 ```js
 import { Parallax } from 'spectre-react-lib/experimental';
+```
+
+Parallax supports canonical compound layers. Corner overlays enter the tab order only when their matching callback is supplied:
+
+```tsx
+<Parallax>
+  <Parallax.Content>
+    <Parallax.Front>Foreground</Parallax.Front>
+    <Parallax.Back>Background</Parallax.Back>
+  </Parallax.Content>
+</Parallax>
 ```
 
 The existing root `Parallax` export remains available for backwards compatibility. The `spectre-react-lib/icons` boundary is reserved for the typed Icon component planned in the component coverage roadmap.

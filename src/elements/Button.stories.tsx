@@ -1,69 +1,75 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button } from './Button';
+import { Button, type ButtonVariant } from './Button';
 
 const meta = {
-  title: 'Elements/Button',
+  title: 'Core/Elements/Button',
   component: Button,
-  parameters: {},
   tags: ['autodocs'],
-  argTypes: {
-    children: {
-      control: { type: 'text' },
-    },
-  },
   args: {
-    children: 'button',
-    loading: false,
+    children: 'Button',
+    variant: 'default',
+    controlSize: 'md',
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
-  args: {},
-};
+export const Basic: Story = {};
 
-export const Primary: Story = {
-  args: {
-    primary: true,
+export const Variants: Story = {
+  render() {
+    const variants: ButtonVariant[] = ['default', 'primary', 'success', 'error', 'link'];
+
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        {variants.map((variant) => (
+          <Button key={variant} variant={variant}>
+            {variant}
+          </Button>
+        ))}
+      </div>
+    );
   },
 };
 
-export const Success: Story = {
-  args: {
-    success: true,
-  },
-};
-
-export const Error: Story = {
-  args: {
-    error: true,
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    loading: true,
-  },
-};
-
-export const Sizes: Story = {
+export const ControlSizes: Story = {
   render() {
     return (
-      <>
-        <Button size={12}>Size 12</Button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Button controlSize="sm">Small</Button>
+        <Button controlSize="md">Medium</Button>
+        <Button controlSize="lg">Large</Button>
+      </div>
+    );
+  },
+};
 
-        <Button size={6}>Size 6</Button>
-        <Button size={4}>Size 4</Button>
-        <Button size={2}>Size 2</Button>
+export const Actions: Story = {
+  render() {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Button action aria-label="Add">
+          +
+        </Button>
+        <Button action className="s-circle" aria-label="Add circular item">
+          +
+        </Button>
+        <Button clear aria-label="Dismiss" />
+      </div>
+    );
+  },
+};
 
-        <Button size={3}>Size 3</Button>
-        <Button size={1}>Size 1</Button>
-        <Button size={5}>Size 5</Button>
-        <Button size={2}>Size 2</Button>
-        <Button size={1}>Size 1</Button>
-      </>
+export const States: Story = {
+  render() {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Button active>Active</Button>
+        <Button disabled>Disabled</Button>
+        <Button loading>Loading</Button>
+        <Button block>Block</Button>
+      </div>
     );
   },
 };
@@ -72,10 +78,23 @@ export const Group: Story = {
   render() {
     return (
       <Button.Group>
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
+        <Button active>First</Button>
+        <Button>Second</Button>
+        <Button>Third</Button>
       </Button.Group>
+    );
+  },
+};
+
+/** @deprecated Use Grid.Column for layout width. */
+export const LegacyGridWidths: Story = {
+  render() {
+    return (
+      <div className="columns">
+        <Button size={6}>Legacy size 6</Button>
+        <Button size={4}>Legacy size 4</Button>
+        <Button size={2}>Legacy size 2</Button>
+      </div>
     );
   },
 };

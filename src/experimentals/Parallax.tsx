@@ -1,23 +1,61 @@
 import React, { forwardRef } from 'react';
 import { addClass } from '../helpers';
+import { hasCompoundChild } from '../internal/hasCompoundChild';
 
-export interface ParallaxProps extends React.ComponentPropsWithoutRef<'div'> {
-  title?: string;
+export type ParallaxCorner = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export type ParallaxControlLabels = Partial<Record<ParallaxCorner, string>>;
+
+export interface ParallaxProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'title'> {
+  title?: React.ReactNode;
   topLeft?: (event: React.SyntheticEvent) => void;
   topRight?: (event: React.SyntheticEvent) => void;
   bottomLeft?: (event: React.SyntheticEvent) => void;
   bottomRight?: (event: React.SyntheticEvent) => void;
+  controlLabels?: ParallaxControlLabels;
 }
 
-function ParallaxButton({
-  className,
+export type ParallaxContentProps = React.ComponentPropsWithoutRef<'div'>;
+export type ParallaxFrontProps = React.ComponentPropsWithoutRef<'div'>;
+export type ParallaxBackProps = React.ComponentPropsWithoutRef<'div'>;
+
+const ParallaxContent = forwardRef<HTMLDivElement, ParallaxContentProps>(
+  function ParallaxContent(props, ref) {
+    return <div {...props} ref={ref} className={addClass('parallax-content', props.className)} />;
+  }
+);
+
+const ParallaxFront = forwardRef<HTMLDivElement, ParallaxFrontProps>(
+  function ParallaxFront(props, ref) {
+    return <div {...props} ref={ref} className={addClass('parallax-front', props.className)} />;
+  }
+);
+
+const ParallaxBack = forwardRef<HTMLDivElement, ParallaxBackProps>(
+  function ParallaxBack(props, ref) {
+    return <div {...props} ref={ref} className={addClass('parallax-back', props.className)} />;
+  }
+);
+
+const defaultLabels: Record<ParallaxCorner, string> = {
+  topLeft: 'Parallax top left control',
+  topRight: 'Parallax top right control',
+  bottomLeft: 'Parallax bottom left control',
+  bottomRight: 'Parallax bottom right control',
+};
+
+function ParallaxCornerControl({
+  corner,
   label,
   onClick,
 }: {
-  className: string;
+  corner: ParallaxCorner;
   label: string;
   onClick?: (event: React.SyntheticEvent) => void;
 }) {
+  const className = `parallax-${corner.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+
+  if (!onClick) return <div className={className} aria-hidden="true" />;
+
   return (
     <button
       type="button"
@@ -35,43 +73,42 @@ function ParallaxButton({
   );
 }
 
-/**
- * A hover parallax effect.
- */
-export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(function Parallax(
-  { children, title, topLeft, topRight, bottomLeft, bottomRight, ...props },
+const ParallaxRoot = forwardRef<HTMLDivElement, ParallaxProps>(function Parallax(
+  { children, title, topLeft, topRight, bottomLeft, bottomRight, controlLabels, ...props },
   ref
 ) {
   const className = addClass('parallax', props.className);
+  const callbacks = { topLeft, topRight, bottomLeft, bottomRight };
+  const corners: ParallaxCorner[] = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+  const compound = hasCompoundChild(children, [ParallaxContent]);
 
   return (
     <div {...props} ref={ref} className={className}>
-      <ParallaxButton
-        className="parallax-top-left"
-        label="Parallax top left control"
-        onClick={topLeft}
-      />
-      <ParallaxButton
-        className="parallax-top-right"
-        label="Parallax top right control"
-        onClick={topRight}
-      />
-      <ParallaxButton
-        className="parallax-bottom-left"
-        label="Parallax bottom left control"
-        onClick={bottomLeft}
-      />
-      <ParallaxButton
-        className="parallax-bottom-right"
-        label="Parallax bottom right control"
-        onClick={bottomRight}
-      />
-      <div className="parallax-content">
-        <div className="parallax-front">
-          <h2>{title}</h2>
-        </div>
-        <div className="parallax-back">{children}</div>
-      </div>
+      {corners.map((corner) => (
+        <ParallaxCornerControl
+          key={corner}
+          corner={corner}
+          label={controlLabels?.[corner] ?? defaultLabels[corner]}
+          onClick={callbacks[corner]}
+        />
+      ))}
+      {compound ? (
+        children
+      ) : (
+        <ParallaxContent>
+          <ParallaxFront>
+            <h2>{title}</h2>
+          </ParallaxFront>
+          <ParallaxBack>{children}</ParallaxBack>
+        </ParallaxContent>
+      )}
     </div>
   );
+});
+
+/** A hover parallax effect requiring Spectre's experimental stylesheet. */
+export const Parallax = Object.assign(ParallaxRoot, {
+  Content: ParallaxContent,
+  Front: ParallaxFront,
+  Back: ParallaxBack,
 });

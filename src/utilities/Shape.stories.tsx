@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Shape } from './Shape';
-import { Colors, type Color } from '../utils';
+
+const shapeStyle = {
+  width: 96,
+  height: 96,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+} as const;
 
 const meta = {
   title: 'Utilities/Shape',
   component: Shape,
-  parameters: {},
   tags: ['autodocs'],
-  argTypes: {},
   args: {
     shape: 'circle',
-    style: {
-      width: 96,
-      height: 96,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+    legacyDefaults: false,
+    style: shapeStyle,
   },
 } satisfies Meta<typeof Shape>;
 
@@ -25,8 +25,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Circle: Story = {
   args: {
-    shape: 'circle',
     children: 'circle',
+    backgroundColor: 'primary',
+    textColor: 'light',
   },
 };
 
@@ -34,88 +35,42 @@ export const Rounded: Story = {
   args: {
     shape: 'rounded',
     children: 'rounded',
+    backgroundColor: 'secondary',
+    textColor: 'dark',
   },
 };
 
-export const AllShapes: Story = {
-  args: {
-    children: 'shape',
-  },
-  render({ children, style, className }) {
+export const CanonicalShapes: Story = {
+  render() {
     return (
       <div style={{ display: 'flex', gap: 32 }}>
-        <Shape {...{ className, style }} shape="rounded">
-          {children}
+        <Shape
+          shape="rounded"
+          legacyDefaults={false}
+          backgroundColor="success"
+          textColor="light"
+          style={shapeStyle}
+        >
+          rounded
         </Shape>
-        <Shape {...{ className, style }} shape="circle">
-          {children}
+        <Shape
+          shape="circle"
+          legacyDefaults={false}
+          backgroundColor="warning"
+          textColor="dark"
+          style={shapeStyle}
+        >
+          circle
         </Shape>
       </div>
     );
   },
 };
 
-export const ColorsStory: Story = {
-  name: 'Colors',
+/** @deprecated Set legacyDefaults to false and compose layout styles explicitly. */
+export const LegacyDefaults: Story = {
   args: {
-    style: {
-      width: 120,
-      height: 120,
-      padding: 6,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    children: 'shape',
-  },
-  render({ children, style, className }) {
-    const colors = Object.values(Colors);
-    const bgColorToTextColorMap = {
-      [Colors.Primary]: Colors.Light,
-      [Colors.Secondary]: Colors.Dark,
-      [Colors.Dark]: Colors.Light,
-      [Colors.Gray]: Colors.Dark,
-      [Colors.Success]: Colors.Light,
-      [Colors.Warning]: Colors.Light,
-      [Colors.Error]: Colors.Light,
-      [Colors.Light]: Colors.Dark,
-    } satisfies Record<Color, Color>;
-
-    function getTextColor(bgColor: Color): Color {
-      return bgColorToTextColorMap[bgColor];
-    }
-
-    return (
-      <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
-        {colors.map((color) => {
-          return (
-            <>
-              <Shape
-                {...{
-                  className,
-                  style,
-                  backgroundColor: color,
-                  textColor: getTextColor(color),
-                }}
-                shape="rounded"
-              >
-                {color} rounded: {children}
-              </Shape>
-              <Shape
-                {...{
-                  className,
-                  style,
-                  backgroundColor: color,
-                  textColor: getTextColor(color),
-                }}
-                shape="circle"
-              >
-                {color} circle: {children}
-              </Shape>
-            </>
-          );
-        })}
-      </div>
-    );
+    legacyDefaults: true,
+    children: 'legacy',
   },
 };

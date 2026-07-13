@@ -57,10 +57,10 @@ Follow-up improvements to modernize this library after the Bun/dev-stack upgrade
 
 ## 6. Library API cleanup
 
-- Convert `ControlledTab` from a class component to a function component with hooks.
+- [x] Complete `ControlledTab`'s hook-based controlled/uncontrolled and keyboard behavior.
 - Reduce duplicated `className` composition logic.
 - Keep public API compatibility where possible, and reserve breaking changes for a major release.
 
 ## Recommended next PR
 
-Start with accessibility and component typings. It is user-visible, low risk, and addresses the remaining React warnings and older interaction patterns.
+Phases 1 and 2 completed parity work for every existing public family. Continue with Phase 3 of the component coverage plan: add Form, Label, Code, Media, and the typed Icon subpath, building on the new Grid and component conventions.
