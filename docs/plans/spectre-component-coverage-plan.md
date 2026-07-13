@@ -3,10 +3,14 @@
 | Field                    | Value               |
 | ------------------------ | ------------------- |
 | Status                   | In progress         |
-| Last updated             | 2026-07-11          |
+| Last updated             | 2026-07-12          |
 | React library            | `spectre-react-lib` |
 | CSS compatibility target | `spectre.css@0.5.9` |
 | Canonical CSS commit     | `8847251`           |
+
+Implementation order, PR boundaries, concrete paths, and batch-specific gates are maintained in
+the [component coverage execution plan](./spectre-component-coverage-execution-plan.md). This file
+remains the source of truth for scope, API direction, compatibility policy, and coverage status.
 
 ## 1. Executive summary
 

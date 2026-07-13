@@ -63,4 +63,8 @@ Follow-up improvements to modernize this library after the Bun/dev-stack upgrade
 
 ## Recommended next PR
 
-Phases 1 and 2 completed parity work for every existing public family. Continue with Phase 3 of the component coverage plan: add Form, Label, Code, Media, and the typed Icon subpath, building on the new Grid and component conventions.
+Phases 1 and 2 completed parity work for every existing public family. Follow the
+[component coverage execution plan](./plans/spectre-component-coverage-execution-plan.md), beginning
+with its focused shared internals and Phase 3 Form, Label, Code, Media, and Icon batches. Browser and
+axe scaffolding may proceed in parallel, but must land before CSS-driven interactions, overlays, or
+experimental native controls ship.
