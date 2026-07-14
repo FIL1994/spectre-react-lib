@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/FIL1994/spectre-react-lib/compare/spectre-react-lib-v0.6.2...spectre-react-lib-v0.7.0) (2026-07-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **package:** React 17 is no longer supported. Consumers must use React and React DOM 18 or 19.
+* **build:** Published bundles now require ES2021-compatible runtimes.
+
+### Features
+
+* added Shape ([#98](https://github.com/FIL1994/spectre-react-lib/issues/98)) ([d64a52f](https://github.com/FIL1994/spectre-react-lib/commit/d64a52f758b3b87feb52e3064eb2a8d4aafd33f9))
+* added toast story ([#83](https://github.com/FIL1994/spectre-react-lib/issues/83)) ([77f8205](https://github.com/FIL1994/spectre-react-lib/commit/77f8205f371f7d1d08d39015aafe4f376413c223))
+* **package:** establish component foundation contracts ([#125](https://github.com/FIL1994/spectre-react-lib/issues/125)) ([30efb4d](https://github.com/FIL1994/spectre-react-lib/commit/30efb4d6fb48303703baa44a2b8fe937ca4618b9))
+
+
+### Bug Fixes
+
+* added env sample ([#86](https://github.com/FIL1994/spectre-react-lib/issues/86)) ([9b94310](https://github.com/FIL1994/spectre-react-lib/commit/9b9431071362ce62e0661cb9c00af3f7037bb175))
+* check step output ([#92](https://github.com/FIL1994/spectre-react-lib/issues/92)) ([a61543e](https://github.com/FIL1994/spectre-react-lib/commit/a61543e81eb88dfead1f99904a53ae8a9ae5f4a7))
+* **core:** complete primitive and component parity ([#126](https://github.com/FIL1994/spectre-react-lib/issues/126)) ([0e8cc83](https://github.com/FIL1994/spectre-react-lib/commit/0e8cc83d1d96b362f83242070b310f7068074aac))
+* fixed release action ([#87](https://github.com/FIL1994/spectre-react-lib/issues/87)) ([a05dad9](https://github.com/FIL1994/spectre-react-lib/commit/a05dad9acd3dfe2d86232ad70a6a60406d19e82a))
+* fixed ts-essentials import in dist js ([#100](https://github.com/FIL1994/spectre-react-lib/issues/100)) ([29b4c52](https://github.com/FIL1994/spectre-react-lib/commit/29b4c52740e0c515f9ae92ee444ac02358c81d96))
+* improve accessibility and public typings ([#124](https://github.com/FIL1994/spectre-react-lib/issues/124)) ([fc0ff62](https://github.com/FIL1994/spectre-react-lib/commit/fc0ff62604381b45c155651ad795a75359fd9240))
+* release action publish ([#93](https://github.com/FIL1994/spectre-react-lib/issues/93)) ([a150324](https://github.com/FIL1994/spectre-react-lib/commit/a150324d96a4b22f5fee372086fb6cad0fa0876f))
+* release outputs ([#89](https://github.com/FIL1994/spectre-react-lib/issues/89)) ([a19dfda](https://github.com/FIL1994/spectre-react-lib/commit/a19dfda1a213a228273d3fea6e032383c6c5835d))
+* release step id ([#91](https://github.com/FIL1994/spectre-react-lib/issues/91)) ([572cdda](https://github.com/FIL1994/spectre-react-lib/commit/572cddaefc6916410f0f37a21f0b2df81b4abe36))
+* updated workflows ([#114](https://github.com/FIL1994/spectre-react-lib/issues/114)) ([b497b94](https://github.com/FIL1994/spectre-react-lib/commit/b497b943772f84bb4fae4838e4aa884547da5a22))
+
+
+### Miscellaneous Chores
+
+* **build:** target es2021 ([8962704](https://github.com/FIL1994/spectre-react-lib/commit/8962704a07b500fb80c34c283d607a54a205cc34))
+
 ## [0.6.2](https://github.com/FIL1994/spectre-react-lib/compare/v0.6.1...v0.6.2) (2024-11-20)
 
 ### Bug Fixes
